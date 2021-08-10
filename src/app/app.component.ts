@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { InteractionService } from './services/interaction.service';
+import { AuthorizationService } from './services/authorization/authorization.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,32 +8,8 @@ import { InteractionService } from './services/interaction.service';
 export class AppComponent {
   title = 'StravaCleaner';
    
-  constructor(private _interaction: InteractionService) {
-    this._interaction.getAuthorization();
-
-    // this._interaction.getTest()
-    //     .subscribe((response) => {console.log(response)},
-    //     (error) => {
-    //       console.log(error);
-    //       // this.errorMessage = error.message; this.loading = false; 
-    //     },
-    //     () => {
-    //       console.log('complete!!!');
-    //       // this.loading = false;
-    //     })
-
-    // this._interaction.getConfig()
-    // .subscribe((response) => {console.log(response)},
-    // (error) => {
-    //   console.log(error);
-    //   // this.errorMessage = error.message; this.loading = false; 
-    // },
-    // () => {
-    //   console.log('complete!!!');
-    //   // this.loading = false;
-    // })
-    // window.location.href = this._interaction.prepareAuth();
-    
+  constructor(private _auth: AuthorizationService) {
+    this._auth.getAuthorization();    
   }
   
 }

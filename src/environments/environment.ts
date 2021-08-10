@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  client_id: '66122',
+  URL: 'http://localhost:4200',
+  API_URL_AUTH: "http://www.strava.com/oauth/authorize"
 };
 
 /*
