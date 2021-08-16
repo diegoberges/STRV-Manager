@@ -12,10 +12,13 @@ export class OauthService {
 	constructor(private http: HttpClient) {}
 
 	getRequestAccessUrl() {
-		let url = new URL(environment.API_URL_AUTH);
+		let url = new URL('http://www.strava.com/oauth/authorize');
 		url.searchParams.append('client_id', environment.client_id);
 		url.searchParams.append('response_type', 'code');
-		url.searchParams.append('redirect_uri', environment.URL + '/authorization');
+		url.searchParams.append(
+			'redirect_uri',
+			'http://localhost:4200/authorization'
+		);
 		url.searchParams.append('approval_prompt', 'force');
 		url.searchParams.append(
 			'scope',
@@ -41,7 +44,7 @@ export class OauthService {
 			.append('client_id', environment.client_id)
 			.append('client_secret', environment.client_secret)
 			.append('code', code)
-			.append('grant_type', environment.grant_type);
+			.append('grant_type', 'authorization_code');
 
 		this.http
 			.post<any>('https://www.strava.com/oauth/token', body, {
