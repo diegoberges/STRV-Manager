@@ -12,8 +12,6 @@ import { catchError } from 'rxjs/internal/operators';
 	providedIn: 'root',
 })
 export class HttpErrorInterceptor implements HttpInterceptor {
-	constructor() {}
-
 	intercept(
 		request: HttpRequest<any>,
 		next: HttpHandler
