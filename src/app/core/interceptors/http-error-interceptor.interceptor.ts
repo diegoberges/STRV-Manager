@@ -7,11 +7,15 @@ import {
 } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators';
+import { Errors } from '../enums/errors';
+import { OauthService } from '../services/oauth.service';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class HttpErrorInterceptor implements HttpInterceptor {
+	constructor(private _oauth: OauthService) {}
+
 	intercept(
 		request: HttpRequest<any>,
 		next: HttpHandler
@@ -24,10 +28,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 					errorMessage = `Client-side error: ${error.error.message}`;
 				} else {
 					// backend error
-					errorMessage = `Server-side error: ${error.status} ${error.message}`;
+					errorMessage = `Server-side error: ${error.status} ${error.error.message}`;
 				}
 				//TODO aquí se abrirá la ventana de gestión de errores
+				console.log(error);
 				console.log(errorMessage);
+
+				if (error.status === Errors.BadRequest) {
+					this._oauth.getRequestAccessUrl();
+				}
 				// aquí podrías agregar código que muestre el error en alguna parte fija de la pantalla.
 				// this.errorService.show(errorMessage);
 				return throwError(errorMessage);

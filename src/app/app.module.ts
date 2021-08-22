@@ -7,21 +7,13 @@ import { AppComponent } from './app.component';
 import { AuthorizationComponent } from './components/authorization/authorization.component';
 import { OauthComponent } from './components/oauth/oauth.component';
 // Interceptors
-import { HttpErrorInterceptor } from './services/http-error-interceptor.interceptor';
+import { HttpErrorInterceptor } from './core/interceptors/http-error-interceptor.interceptor';
 @NgModule({
-  declarations: [
-    AppComponent,
-    AuthorizationComponent,
-    OauthComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule
-  ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
-  ],
-  bootstrap: [AppComponent]
+	declarations: [AppComponent, AuthorizationComponent, OauthComponent],
+	imports: [BrowserModule, HttpClientModule, AppRoutingModule],
+	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+	],
+	bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

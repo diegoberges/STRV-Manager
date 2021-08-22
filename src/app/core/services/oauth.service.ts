@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Token } from 'src/app/models/Token';
+import { Token } from 'src/app/core/models/Token';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { InteractionService } from './interaction.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -9,7 +10,10 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 export class OauthService {
 	private _token: Token = new Token();
 
-	constructor(private http: HttpClient) {}
+	constructor(
+		private http: HttpClient,
+		private interaction: InteractionService
+	) {}
 
 	getRequestAccessUrl() {
 		let url = new URL('http://www.strava.com/oauth/authorize');
@@ -19,7 +23,7 @@ export class OauthService {
 			'redirect_uri',
 			'http://localhost:4200/authorization'
 		);
-		url.searchParams.append('approval_prompt', 'force');
+		url.searchParams.append('approval_prompt', 'auto');
 		url.searchParams.append(
 			'scope',
 			'read,read_all,profile:read_all,activity:read,activity:read_all'
@@ -38,7 +42,7 @@ export class OauthService {
 			'application/x-www-form-urlencoded'
 		);
 
-		const body = {};
+		const body: any = {};
 
 		const params = new HttpParams()
 			.append('client_id', environment.client_id)
@@ -52,6 +56,10 @@ export class OauthService {
 				params: params,
 			})
 			.subscribe((res) => console.log(res));
+
+		// this.interaction
+		// 	.post('https://www.strava.com/oauth/token', body, headers, params)
+		// 	.subscribe((res) => console.log(res));
 	}
 
 	// SetToken(scope: string, code: string, state: string){
