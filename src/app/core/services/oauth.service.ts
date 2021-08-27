@@ -4,14 +4,12 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { InteractionService } from './interaction.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { Welcome } from '../models/welcome.class';
-import { Oauth } from '../models/oauth.class';
-
+import { Token } from '../models/token.class';
 @Injectable({
 	providedIn: 'root',
 })
 export class OauthService {
-	private _token: Oauth = new Oauth();
-
+	private token = new Token();
 	constructor(
 		private http: HttpClient,
 		private interaction: InteractionService
@@ -31,7 +29,9 @@ export class OauthService {
 		window.location.href = url.toString();
 	}
 
-	getToken() {}
+	getToken(): Token {
+		return this.token;
+	}
 
 	deauthorize() {}
 
@@ -55,5 +55,10 @@ export class OauthService {
 			headers,
 			params
 		);
+	}
+
+	setToken(token: Token) {
+		console.log(token);
+		this.token = token;
 	}
 }
