@@ -49,13 +49,11 @@ export class OauthService {
 			.append('code', code)
 			.append('grant_type', 'authorization_code');
 
-		return this.http.post<Welcome>('https://www.strava.com/oauth/token', body, {
-			headers: headers,
-			params: params,
-		});
-
-		// this.interaction
-		// 	.post('https://www.strava.com/oauth/token', body, headers, params)
-		// 	.subscribe((res) => console.log(res));
+		return this.interaction.post<Welcome>(
+			'https://www.strava.com/oauth/token',
+			body,
+			headers,
+			params
+		);
 	}
 }
