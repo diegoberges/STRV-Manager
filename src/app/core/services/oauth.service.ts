@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Token } from 'src/app/core/models/Token';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { InteractionService } from './interaction.service';
+import { Observable } from 'rxjs/internal/Observable';
+import { Welcome } from '../models/welcome.class';
+import { Oauth } from '../models/oauth.class';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class OauthService {
-	private _token: Token = new Token();
+	private _token: Oauth = new Oauth();
 
 	constructor(
 		private http: HttpClient,
@@ -19,10 +21,7 @@ export class OauthService {
 		let url = new URL('http://www.strava.com/oauth/authorize');
 		url.searchParams.append('client_id', environment.client_id);
 		url.searchParams.append('response_type', 'code');
-		url.searchParams.append(
-			'redirect_uri',
-			'http://localhost:4200/authorization'
-		);
+		url.searchParams.append('redirect_uri', 'http://localhost:4200/user');
 		url.searchParams.append('approval_prompt', 'auto');
 		url.searchParams.append(
 			'scope',
@@ -36,7 +35,7 @@ export class OauthService {
 
 	deauthorize() {}
 
-	refreshToken(code: string) {
+	refreshToken(code: string): Observable<Welcome> {
 		const headers = new HttpHeaders().append(
 			'Content-Type',
 			'application/x-www-form-urlencoded'
@@ -50,25 +49,13 @@ export class OauthService {
 			.append('code', code)
 			.append('grant_type', 'authorization_code');
 
-		this.http
-			.post<any>('https://www.strava.com/oauth/token', body, {
-				headers: headers,
-				params: params,
-			})
-			.subscribe((res) => console.log(res));
+		return this.http.post<Welcome>('https://www.strava.com/oauth/token', body, {
+			headers: headers,
+			params: params,
+		});
 
 		// this.interaction
 		// 	.post('https://www.strava.com/oauth/token', body, headers, params)
 		// 	.subscribe((res) => console.log(res));
 	}
-
-	// SetToken(scope: string, code: string, state: string){
-	//   // this._token.setScope(scope);
-	//   // this._token.setCode(code);
-	//   // this._token.setState(state);
-	// }
-
-	// getToken() : Token{
-	//   return this._token;
-	// }
 }
