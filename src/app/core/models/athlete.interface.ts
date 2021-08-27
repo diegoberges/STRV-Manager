@@ -1,7 +1,7 @@
 export interface IAthlete {
 	id: number;
 	username: string;
-	resourceState: number;
+	resource_state: number;
 	firstname: string;
 	lastname: string;
 	bio: null;
@@ -11,11 +11,11 @@ export interface IAthlete {
 	sex: string;
 	premium: boolean;
 	summit: boolean;
-	createdAt: Date;
-	updatedAt: Date;
-	badgeTypeID: number;
+	created_at: Date;
+	updated_at: Date;
+	badge_type_id: number;
 	weight: number;
-	profileMedium: string;
+	profile_medium: string;
 	profile: string;
 	friend: null;
 	follower: null;

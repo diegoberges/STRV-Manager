@@ -2,7 +2,7 @@ import { IAthlete } from './athlete.interface';
 export class Athlete implements IAthlete {
 	id: number;
 	username: string;
-	resourceState: number;
+	resource_state: number;
 	firstname: string;
 	lastname: string;
 	bio: null;
@@ -12,11 +12,11 @@ export class Athlete implements IAthlete {
 	sex: string;
 	premium: boolean;
 	summit: boolean;
-	createdAt: Date;
-	updatedAt: Date;
-	badgeTypeID: number;
+	created_at: Date;
+	updated_at: Date;
+	badge_type_id: number;
 	weight: number;
-	profileMedium: string;
+	profile_medium: string;
 	profile: string;
 	friend: null;
 	follower: null;
@@ -24,7 +24,7 @@ export class Athlete implements IAthlete {
 	constructor() {
 		this.id = 0;
 		this.username = '';
-		this.resourceState = 0;
+		this.resource_state = 0;
 		this.firstname = '';
 		this.lastname = '';
 		this.bio = null;
@@ -34,11 +34,11 @@ export class Athlete implements IAthlete {
 		this.sex = '';
 		this.premium = false;
 		this.summit = false;
-		this.createdAt = new Date();
-		this.updatedAt = new Date();
-		this.badgeTypeID = 0;
+		this.created_at = new Date();
+		this.updated_at = new Date();
+		this.badge_type_id = 0;
 		this.weight = 0;
-		this.profileMedium = '';
+		this.profile_medium = '';
 		this.profile = '';
 		this.friend = null;
 		this.follower = null;

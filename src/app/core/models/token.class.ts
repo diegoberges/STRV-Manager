@@ -1,10 +1,10 @@
 import { IToken } from './token.interface';
 export class Token implements IToken {
-	tokenType: string;
-	expiresAt: number;
-	expiresIn: number;
-	refreshToken: string;
-	accessToken: string;
+	token_type: string;
+	expires_at: number;
+	expires_in: number;
+	refresh_token: string;
+	access_token: string;
 
 	constructor(
 		tokenType: string = '',
@@ -13,10 +13,10 @@ export class Token implements IToken {
 		refreshToken: string = '',
 		accessToken: string = ''
 	) {
-		this.tokenType = tokenType;
-		this.expiresAt = expiresAt;
-		this.expiresIn = expiresIn;
-		this.refreshToken = refreshToken;
-		this.accessToken = accessToken;
+		this.token_type = tokenType;
+		this.expires_at = expiresAt;
+		this.expires_in = expiresIn;
+		this.refresh_token = refreshToken;
+		this.access_token = accessToken;
 	}
 }
