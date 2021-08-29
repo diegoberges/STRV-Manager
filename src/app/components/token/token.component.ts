@@ -6,24 +6,21 @@ import { Welcome } from 'src/app/core/models/welcome.class';
 import { OauthService } from '../../core/services/oauth.service';
 
 @Component({
-	selector: 'app-user',
-	templateUrl: './user.component.html',
-	styleUrls: ['./user.component.sass'],
+	selector: 'app-token',
+	templateUrl: './token.component.html',
 })
-export class UserComponent implements OnInit {
+export class TokenComponent implements OnInit {
 	athlete: Athlete = new Athlete();
 	constructor(
-		private _route: ActivatedRoute,
-		private _router: Router,
-		private _oauth: OauthService
+		private route: ActivatedRoute,
+		private oauth: OauthService,
+		private router: Router
 	) {}
 
 	ngOnInit(): void {
-		this._route.queryParams.subscribe(async (params) =>
-			this._oauth.refreshToken(params.code).subscribe((resp: Welcome) => {
-				console.log(resp);
-				console.log(resp.athlete);
-				this._oauth.setToken(
+		this.route.queryParams.subscribe(async (params) =>
+			this.oauth.refreshToken(params.code).subscribe((resp: Welcome) => {
+				this.oauth.setToken(
 					new Token(
 						resp.token_type,
 						resp.expires_at,
@@ -32,7 +29,8 @@ export class UserComponent implements OnInit {
 						resp.access_token
 					)
 				);
-				this.athlete = resp.athlete;
+
+				this.router.navigate(['athlete']);
 			})
 		);
 	}

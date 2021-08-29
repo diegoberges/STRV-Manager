@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { InteractionService } from './interaction.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { Welcome } from '../models/welcome.class';
@@ -10,16 +10,13 @@ import { Token } from '../models/token.class';
 })
 export class OauthService {
 	private token = new Token();
-	constructor(
-		private http: HttpClient,
-		private interaction: InteractionService
-	) {}
+	constructor(private interaction: InteractionService) {}
 
 	getRequestAccessUrl() {
 		let url = new URL('http://www.strava.com/oauth/authorize');
 		url.searchParams.append('client_id', environment.client_id);
 		url.searchParams.append('response_type', 'code');
-		url.searchParams.append('redirect_uri', 'http://localhost:4200/user');
+		url.searchParams.append('redirect_uri', 'http://localhost:4200/token');
 		url.searchParams.append('approval_prompt', 'auto');
 		url.searchParams.append(
 			'scope',
@@ -30,6 +27,7 @@ export class OauthService {
 	}
 
 	getToken(): Token {
+		console.log(this.token);
 		return this.token;
 	}
 
@@ -58,7 +56,6 @@ export class OauthService {
 	}
 
 	setToken(token: Token) {
-		console.log(token);
-		this.token = token;
+		if (token.token_type !== '') this.token = token;
 	}
 }
