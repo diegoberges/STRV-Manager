@@ -5,12 +5,17 @@ import { InteractionService } from './interaction.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { Welcome } from '../models/welcome.class';
 import { Token } from '../models/token.class';
+import { Params, Router } from '@angular/router';
+import { QueryParams } from '../models/queryparams.class';
 @Injectable({
 	providedIn: 'root',
 })
 export class OauthService {
-	private token = new Token();
-	constructor(private interaction: InteractionService) {}
+	private token: Token = new Token();
+	constructor(
+		private interactionService: InteractionService,
+		private router: Router
+	) {}
 
 	getRequestAccessUrl() {
 		let url = new URL('http://www.strava.com/oauth/authorize');
@@ -26,8 +31,16 @@ export class OauthService {
 		window.location.href = url.toString();
 	}
 
+	getQueryParams(params: Params): QueryParams {
+		return new QueryParams(params.state, params.code, params.scope);
+	}
+
 	getToken(): Token {
-		console.log(this.token);
+		//TODO meter esto en un interceptor
+		if (this.token.expires_in <= 0) {
+			this.router.navigate(['token']);
+		}
+
 		return this.token;
 	}
 
@@ -47,7 +60,7 @@ export class OauthService {
 			.append('code', code)
 			.append('grant_type', 'authorization_code');
 
-		return this.interaction.post<Welcome>(
+		return this.interactionService.post<Welcome>(
 			'https://www.strava.com/oauth/token',
 			body,
 			headers,
@@ -56,6 +69,6 @@ export class OauthService {
 	}
 
 	setToken(token: Token) {
-		if (token.token_type !== '') this.token = token;
+		this.token = token;
 	}
 }

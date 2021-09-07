@@ -4,6 +4,7 @@ import { Athlete } from 'src/app/core/models/athlete.class';
 import { Token } from 'src/app/core/models/token.class';
 import { Welcome } from 'src/app/core/models/welcome.class';
 import { OauthService } from '../../core/services/oauth.service';
+import { QueryParams } from '../../core/models/queryparams.class';
 
 @Component({
 	selector: 'app-token',
@@ -11,16 +12,22 @@ import { OauthService } from '../../core/services/oauth.service';
 })
 export class TokenComponent implements OnInit {
 	athlete: Athlete = new Athlete();
+	params: QueryParams = new QueryParams();
 	constructor(
 		private route: ActivatedRoute,
-		private oauth: OauthService,
+		private oauthService: OauthService,
 		private router: Router
 	) {}
 
 	ngOnInit(): void {
-		this.route.queryParams.subscribe(async (params) =>
-			this.oauth.refreshToken(params.code).subscribe((resp: Welcome) => {
-				this.oauth.setToken(
+		this.route.queryParams.subscribe((p) => {
+			this.params = this.oauthService.getQueryParams(p);
+		});
+
+		this.oauthService
+			.refreshToken(this.params.code)
+			.subscribe((resp: Welcome) => {
+				this.oauthService.setToken(
 					new Token(
 						resp.token_type,
 						resp.expires_at,
@@ -29,9 +36,7 @@ export class TokenComponent implements OnInit {
 						resp.access_token
 					)
 				);
-
 				this.router.navigate(['athlete']);
-			})
-		);
+			});
 	}
 }

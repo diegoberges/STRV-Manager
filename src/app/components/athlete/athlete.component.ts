@@ -11,7 +11,6 @@ export class AthleteComponent implements OnInit {
 	constructor(private oauth: OauthService, private athlete: AthleteService) {}
 
 	ngOnInit(): void {
-		this.oauth.getToken();
-		console.log(this.athlete.getAthlete());
+		this.athlete.getAthlete().subscribe((athlete) => console.log(athlete));
 	}
 }
