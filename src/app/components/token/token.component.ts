@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Athlete } from 'src/app/core/models/athlete.class';
 import { Token } from 'src/app/core/models/token.class';
 import { Welcome } from 'src/app/core/models/welcome.class';
 import { OauthService } from '../../core/services/oauth.service';
@@ -11,7 +10,6 @@ import { QueryParams } from '../../core/models/queryparams.class';
 	templateUrl: './token.component.html',
 })
 export class TokenComponent implements OnInit {
-	athlete: Athlete = new Athlete();
 	params: QueryParams = new QueryParams();
 	constructor(
 		private route: ActivatedRoute,

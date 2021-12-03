@@ -4,7 +4,7 @@ export interface IAthlete {
 	resource_state: number;
 	firstname: string;
 	lastname: string;
-	bio: null;
+	bio: string;
 	city: string;
 	state: string;
 	country: string;

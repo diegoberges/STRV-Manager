@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AthleteService } from './athlete.service';
 import { OauthService } from 'src/app/core/services/oauth.service';
+import { Athlete } from 'src/app/core/models/athlete.class';
 
 @Component({
 	selector: 'app-athlete',
@@ -8,9 +9,16 @@ import { OauthService } from 'src/app/core/services/oauth.service';
 	styleUrls: ['./athlete.component.sass'],
 })
 export class AthleteComponent implements OnInit {
-	constructor(private oauth: OauthService, private athlete: AthleteService) {}
+	athlete: Athlete = new Athlete();
+	constructor(
+		private oauth: OauthService,
+		private athleteService: AthleteService
+	) {}
 
 	ngOnInit(): void {
-		this.athlete.getAthlete().subscribe((athlete) => console.log(athlete));
+		this.athleteService.getAthlete().subscribe((resp) => {
+			this.athlete = resp;
+			console.log(resp);
+		});
 	}
 }
