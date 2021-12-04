@@ -1,5 +1,4 @@
-import { IOauth } from './oauth.interface';
-export class Oauth implements IOauth {
+export class Oauth {
 	state: string;
 	code: string;
 	scope: string;

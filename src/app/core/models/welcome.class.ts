@@ -1,14 +1,12 @@
 import { Athlete } from './athlete.class';
-import { IAthlete } from './athlete.interface';
-import { IWelcome } from './welcome.interface';
 
-export class Welcome implements IWelcome {
+export class Welcome {
 	token_type: string;
 	expires_at: number;
 	expires_in: number;
 	refresh_token: string;
 	access_token: string;
-	athlete: IAthlete;
+	athlete: Athlete;
 
 	constructor() {
 		this.token_type = '';

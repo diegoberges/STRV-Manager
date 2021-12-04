@@ -1,5 +1,4 @@
-import { IToken } from './token.interface';
-export class Token implements IToken {
+export class Token {
 	token_type: string;
 	expires_at: number;
 	expires_in: number;

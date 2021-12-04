@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { OauthService } from 'src/app/core/services/oauth.service';
 import { Token } from 'src/app/core/models/token.class';
 import { InteractionService } from '../../core/services/interaction.service';
-import { IAthleteExtended } from '../../core/models/athlete-extended.interface';
+import { AthleteExtended } from 'src/app/core/models/athlete-extended.class';
 
 @Injectable({
 	providedIn: 'root',
@@ -24,6 +24,6 @@ export class AthleteService {
 			'Authorization',
 			this.token.token_type + ' ' + this.token.access_token
 		);
-		return this.interactionService.get<IAthleteExtended>('/athlete', headers);
+		return this.interactionService.get<AthleteExtended>('/athlete', headers);
 	}
 }

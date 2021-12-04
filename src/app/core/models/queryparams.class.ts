@@ -1,5 +1,4 @@
-import { IQueryParams } from './queryparams.interface';
-export class QueryParams implements IQueryParams {
+export class QueryParams {
 	state: string;
 	code: string;
 	scope: string;
