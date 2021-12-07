@@ -9,13 +9,12 @@ import { OauthComponent } from './components/oauth/oauth.component';
 // Interceptors
 import { HttpErrorInterceptor } from './core/interceptors/http-error-interceptor.interceptor';
 import { AthleteComponent } from './components/athlete/athlete.component';
-import { NZ_I18N } from 'ng-zorro-antd/i18n';
-import { es_ES } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroAntdModule } from './core/modules/ng-zorro-antd.module';
+import { BreadcrumbComponent } from './components/ui/breadcrumb/breadcrumb.component';
 
 registerLocaleData(es);
 @NgModule({
@@ -24,6 +23,7 @@ registerLocaleData(es);
 		TokenComponent,
 		OauthComponent,
 		AthleteComponent,
+		BreadcrumbComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -35,7 +35,6 @@ registerLocaleData(es);
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-		{ provide: NZ_I18N, useValue: es_ES },
 	],
 	bootstrap: [AppComponent],
 })

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NZ_I18N, es_ES } from 'ng-zorro-antd/i18n';
 
 import { NzAffixModule } from 'ng-zorro-antd/affix';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
@@ -140,5 +141,6 @@ import { NzPipesModule } from 'ng-zorro-antd/pipes';
 		NzResizableModule,
 		NzPipesModule,
 	],
+	providers: [{ provide: NZ_I18N, useValue: es_ES }],
 })
 export class NgZorroAntdModule {}
