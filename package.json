@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "-": "^0.0.1",
     "@angular/animations": "~12.2.14",
     "@angular/common": "~12.2.14",
     "@angular/compiler": "~12.2.14",
@@ -22,6 +23,7 @@
     "fix": "^0.0.6",
     "ng-zorro-antd": "^12.1.0",
     "npm": "^7.20.5",
+    "renamer": "^4.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"

@@ -15,6 +15,7 @@ import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgZorroAntdModule } from './core/modules/ng-zorro-antd.module';
 
 registerLocaleData(es);
 @NgModule({
@@ -24,7 +25,14 @@ registerLocaleData(es);
 		OauthComponent,
 		AthleteComponent,
 	],
-	imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule, BrowserAnimationsModule],
+	imports: [
+		BrowserModule,
+		HttpClientModule,
+		AppRoutingModule,
+		FormsModule,
+		BrowserAnimationsModule,
+		NgZorroAntdModule,
+	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
 		{ provide: NZ_I18N, useValue: es_ES },

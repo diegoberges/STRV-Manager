@@ -6,7 +6,7 @@ import { Athlete } from 'src/app/core/models/athlete.class';
 @Component({
 	selector: 'app-athlete',
 	templateUrl: './athlete.component.html',
-	styleUrls: ['./athlete.component.sass'],
+	styleUrls: ['./athlete.component.scss'],
 })
 export class AthleteComponent implements OnInit {
 	athlete: Athlete = new Athlete();
