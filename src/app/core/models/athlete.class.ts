@@ -1,45 +1,37 @@
-export class Athlete {
-	id: number;
-	username: string;
-	resource_state: number;
-	firstname: string;
-	lastname: string;
-	bio: string;
-	city: string;
-	state: string;
-	country: string;
-	sex: string;
-	premium: boolean;
-	summit: boolean;
-	created_at: Date;
-	updated_at: Date;
-	badge_type_id: number;
-	weight: number;
-	profile_medium: string;
-	profile: string;
-	friend: null;
-	follower: null;
+import { AthleteBase } from './athlete-base.class';
+import { Bike } from './bike.class';
+import { Club } from './club.class';
+import { Shoe } from './shoe.class';
 
-	constructor() {
-		this.id = 0;
-		this.username = '';
-		this.resource_state = 0;
-		this.firstname = '';
-		this.lastname = '';
-		this.bio = '';
-		this.city = '';
-		this.state = '';
-		this.country = '';
-		this.sex = '';
-		this.premium = false;
-		this.summit = false;
-		this.created_at = new Date();
-		this.updated_at = new Date();
-		this.badge_type_id = 0;
-		this.weight = 0;
-		this.profile_medium = '';
-		this.profile = '';
-		this.friend = null;
-		this.follower = null;
+export class Athlete extends AthleteBase {
+	can_follow: boolean = false;
+	follower_count: number = 0;
+	friend_count: number = 0;
+	mutual_friend_count: number = 0;
+	athlete_type: number = 0;
+	date_preference: string = '';
+	measurement_preference: string = '';
+	clubs: Club[] = new Array<Club>();
+	ftp: number = 0;
+	bikes: Bike[] = new Array<Bike>();
+	shoes: Shoe[] = new Array<Shoe>();
+
+	constructor(athlete?: Athlete) {
+		super(athlete);
+
+		if (athlete != null) {
+			this.can_follow = athlete.can_follow;
+			this.follower_count = athlete.follower_count;
+			this.friend_count = athlete.friend_count;
+			this.mutual_friend_count = athlete.mutual_friend_count;
+			this.athlete_type = athlete.athlete_type;
+			this.date_preference = athlete.date_preference;
+			this.measurement_preference = athlete.measurement_preference;
+			// this.clubs = new Array<Club>(...athlete.clubs);
+			this.clubs = athlete.clubs;
+			this.ftp = athlete.ftp;
+			this.bikes = new Array<Bike>(...athlete.bikes);
+			this.shoes = new Array<Shoe>(...athlete.shoes);
+		}
 	}
 }

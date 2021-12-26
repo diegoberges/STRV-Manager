@@ -1,14 +1,20 @@
-<nz-content>
-	<ui-breadcrumb [items]="itemsBread"></ui-breadcrumb>
-	<div class="inner-content">
-		<img
-			src="{{ athlete.profile }}"
-			alt="{{ athlete.firstname }} {{ athlete.lastname }}"
-		/>
-		<h2>{{ athlete.bio }}</h2>
-		<h3>{{ athlete.city }}, {{ athlete.country }}</h3>
-	</div>
-</nz-content>
+<ui-breadcrumb [items]="itemsBread"></ui-breadcrumb>
+<div class="inner-content">
+	<img
+		src="{{ athlete.profile }}"
+		alt="{{ athlete.firstname }} {{ athlete.lastname }}"
+	/>
+	<p>{{ athlete.bio }}</p>
+	<p>{{ athlete.city }}, {{ athlete.country }}</p>
+
+	<nz-collapse nzAccordion>
+		<nz-collapse-panel *ngFor="let panel of panels" [nzHeader]="panel.name">
+			<!-- [nzActive]="panel.active" -->
+
+			<ui-table [items]="panel.content"></ui-table>
+		</nz-collapse-panel>
+	</nz-collapse>
+</div>
 <!-- Candado abierto con el blocked -->
 <!-- Follow con el can follow -->
 <!-- premium con premium -->

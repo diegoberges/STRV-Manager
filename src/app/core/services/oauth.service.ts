@@ -3,10 +3,10 @@ import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { InteractionService } from './interaction.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { Welcome } from '../models/welcome.class';
-import { Token } from '../models/token.class';
 import { Params, Router } from '@angular/router';
+import { Token } from '../models/token.class';
 import { QueryParams } from '../models/queryparams.class';
+import { Welcome } from '../models/welcome.class';
 @Injectable({
 	providedIn: 'root',
 })

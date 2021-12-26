@@ -1,21 +1,9 @@
-export class Bike {
-	id: string;
-	primary: boolean;
-	name: string;
-	nickname: string;
-	resource_state: number;
-	retired: boolean;
-	distance: number;
-	converted_distance: number;
+import { TypeObject } from '../enums/type-object';
+import { Equipment } from './equipment.class';
 
-	constructor() {
-		this.id = '';
-		this.primary = false;
-		this.name = '';
-		this.nickname = '';
-		this.resource_state = 0;
-		this.retired = false;
-		this.distance = 0;
-		this.converted_distance = 0;
+export class Bike extends Equipment {
+	type: TypeObject = TypeObject.Bike;
+	constructor(bike?: Bike) {
+		super(bike);
 	}
 }
