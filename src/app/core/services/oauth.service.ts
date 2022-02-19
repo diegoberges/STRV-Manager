@@ -4,14 +4,15 @@ import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { InteractionService } from './interaction.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { Params, Router } from '@angular/router';
-import { Token } from '../models/token.class';
-import { QueryParams } from '../models/queryparams.class';
-import { Welcome } from '../models/welcome.class';
+import { Token } from '../models/token.interface';
+import { QueryParams } from '../models/queryparams.interface';
+import { Welcome } from '../models/welcome.interface';
 @Injectable({
 	providedIn: 'root',
 })
 export class OauthService {
-	private token: Token = new Token();
+	private token: Token = {} as Token;
+	private queryParams: QueryParams = {} as QueryParams;
 	constructor(
 		private interactionService: InteractionService,
 		private router: Router
@@ -32,20 +33,47 @@ export class OauthService {
 	}
 
 	getQueryParams(params: Params): QueryParams {
-		return new QueryParams(params.state, params.code, params.scope);
+		this.queryParams.state = params.state;
+		this.queryParams.code = params.code;
+		this.queryParams.scope = params.scope;
+
+		return this.queryParams;
+	}
+
+	deauthorize() {
+		if (this.token.expires_in <= 0) {
+			this.router.navigate(['token']);
+		}
 	}
 
 	getToken(): Token {
 		//TODO meter esto en un interceptor
-		if (this.token.expires_in <= 0) {
+		if (Object.keys(this.token).length === 0) {
+			// TODO Error personalizado de token vacio
 			this.router.navigate(['token']);
+			return this.token;
+		}
+		if (this.token.expires_in <= 0) {
+			// TODO Errores personalizado de token expirado
+			this.router.navigate(['token']);
+			return this.token;
 		}
 
 		return this.token;
 	}
-
-	deauthorize() {}
-
+	setToken(
+		token_type: string,
+		expires_at: number,
+		expires_in: number,
+		refresh_token: string,
+		access_token: string
+	) {
+		this.token.token_type = token_type;
+		this.token.expires_at = expires_at;
+		this.token.expires_in = expires_in;
+		this.token.refresh_token = refresh_token;
+		this.token.access_token = access_token;
+	}
 	refreshToken(code: string): Observable<Welcome> {
 		const headers = new HttpHeaders().append(
 			'Content-Type',
@@ -66,9 +94,5 @@ export class OauthService {
 			headers,
 			params
 		);
-	}
-
-	setToken(token: Token) {
-		this.token = token;
 	}
 }

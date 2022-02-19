@@ -37,6 +37,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 				if (error.status === Errors.BadRequest) {
 					this._oauth.getRequestAccessUrl();
 				}
+				if (error.status === Errors.Unauthorized) {
+					this._oauth.getRequestAccessUrl();
+				}
 				// aquí podrías agregar código que muestre el error en alguna parte fija de la pantalla.
 				// this.errorService.show(errorMessage);
 				return throwError(errorMessage);

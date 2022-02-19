@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroAntdModule } from './core/modules/ng-zorro-antd.module';
 import { BreadcrumbComponent } from './components/ui/breadcrumb/breadcrumb.component';
-import { TableComponent } from './components/ui/table/table.component';
+import { GridComponent } from './components/ui/grid/grid.component';
 import { BaseComponent } from './components/base/base.component';
 
 registerLocaleData(es);
@@ -26,7 +26,7 @@ registerLocaleData(es);
 		OauthComponent,
 		AthleteComponent,
 		BreadcrumbComponent,
-		TableComponent,
+		GridComponent,
 		BaseComponent,
 	],
 	imports: [

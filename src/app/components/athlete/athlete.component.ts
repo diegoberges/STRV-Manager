@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Athlete } from 'src/app/core/models/athlete.class';
-import { Panel } from 'src/app/core/models/panel.class';
+import { TypeObject } from 'src/app/core/enums/type-object';
+import { Athlete } from 'src/app/core/models/athlete.interface';
+import { Panel } from 'src/app/core/models/panel.interface';
 import { AthleteService } from './athlete.service';
 
 @Component({
@@ -10,44 +11,45 @@ import { AthleteService } from './athlete.service';
 })
 export class AthleteComponent implements OnInit {
 	//#region Propiedades
-	athlete: Athlete = new Athlete();
+	athlete: Athlete = {} as Athlete;
 	itemsBread: string[] = [];
-	private name: string = '';
-	private username: string = '';
-	private items: string[] = new Array<string>();
+	#name: string = '';
+	#username: string = '';
+	#items: string[] = new Array<string>();
 	panels: Panel[] = new Array<Panel>();
 	//#endregion
 
 	constructor(private athleteService: AthleteService) {}
 
-	async ngOnInit(): Promise<any> {
+	async ngOnInit() {
 		(await this.athleteService.getAthlete()).subscribe((resp) => {
 			this.athlete = resp;
+			this.athlete.clubs.forEach((club) => (club.type = TypeObject.Club));
+			this.athlete.shoes.forEach((shoe) => (shoe.type = TypeObject.Shoe));
+			this.athlete.bikes.forEach((bike) => (bike.type = TypeObject.Bike));
+
 			this.createBreadItems(resp);
 			this.createPanelItems(resp);
 
-			console.log(resp);
-			// console.log(resp.clubs);
-			// console.log(resp.bikes);
-			// console.log(resp.shoes);
+			// console.log(resp);
 		});
 
-		(await this.athleteService.getZones()).subscribe((zonas) => {
-			console.log(zonas);
-		});
+		// (await this.athleteService.getZones()).subscribe((zonas) => {
+		// 	console.log(zonas);
+		// });
 	}
 
 	private createBreadItems(athlete: Athlete): void {
-		this.name = athlete.firstname + ' ' + athlete.lastname;
-		this.username =
+		this.#name = athlete.firstname + ' ' + athlete.lastname;
+		this.#username =
 			athlete.username != null || athlete.username != ''
 				? '@' + athlete.username
 				: ' ';
-		this.items.push('Athlete');
-		this.items.push(this.name.trim());
-		this.items.push(this.username.trim());
+		this.#items.push('Athlete');
+		this.#items.push(this.#name.trim());
+		this.#items.push(this.#username.trim());
 
-		this.itemsBread = this.items.filter((item) => item);
+		this.itemsBread = this.#items.filter((item) => item);
 	}
 
 	private createPanelItems(athlete: Athlete): void {
@@ -68,12 +70,5 @@ export class AthleteComponent implements OnInit {
 				content: athlete.bikes,
 			},
 		];
-	}
-
-	private createContentPanels<T>(content: T[]): T[] {
-		console.log(typeof content);
-		console.log(typeof content[0]);
-		console.log(this.constructor.toString());
-		return content;
 	}
 }

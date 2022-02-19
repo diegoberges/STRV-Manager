@@ -1,17 +1,22 @@
 <nz-layout>
 	<nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
-		<div class="logo"></div>
+		<div class="logo">
+			<img
+				src="{{ athlete.profile }}"
+				alt="{{ athlete.firstname }} {{ athlete.lastname }}"
+			/>
+		</div>
 		<ul nz-menu nzTheme="dark" nzMode="inline">
 			<li nz-menu-item>
 				<em nz-icon nzType="user"></em>
 				<span>Athlete</span>
 			</li>
-			<!-- <li nz-submenu nzTitle="Team" nzIcon="team">
+			<li nz-submenu nzTitle="Team" nzIcon="team">
 				<ul>
-					<li nz-menu-item>Team 1</li>
-					<li nz-menu-item>Team 2</li>
+					<li nz-menu-item>Running</li>
+					<li nz-menu-item>Bike</li>
 				</ul>
-			</li> -->
+			</li>
 		</ul>
 	</nz-sider>
 	<nz-layout>
