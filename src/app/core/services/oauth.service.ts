@@ -1,51 +1,97 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { InteractionService } from './interaction.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { Params, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Token } from '../models/token.interface';
 import { QueryParams } from '../models/queryparams.interface';
 import { Welcome } from '../models/welcome.interface';
+import { CookieService } from 'ngx-cookie-service';
+import { Constants } from '../utils/constants';
 @Injectable({
 	providedIn: 'root',
 })
 export class OauthService {
-	#token!: Token;
-	#queryParams!: QueryParams;
+	#token: Token = {} as Token;
 	constructor(
-		private http: HttpClient,
 		private interactionService: InteractionService,
-		private router: Router
+		private router: Router,
+		private cookieService: CookieService
 	) {}
 	/**
 	 * @description Petición de permisos a Strava
 	 * Le marcamos a que URL tiene que volver en el redirect_url
 	 */
 	initSession() {
-		let url = new URL('http://www.strava.com/oauth/authorize');
-		url.searchParams.append('client_id', environment.client_id);
-		url.searchParams.append('redirect_uri', 'http://localhost:4200/token');
-		url.searchParams.append('response_type', 'code');
-		url.searchParams.append('approval_prompt', 'auto'); //force
+		let url = new URL(Constants.STRV_OAUTH + Constants.ENDPOINT_AUTHORIZE);
+		url.searchParams.append(Constants.CLIENT_ID, environment.client_id);
 		url.searchParams.append(
-			'scope',
-			'read,read_all,profile:read_all,activity:read,activity:read_all'
+			Constants.REDIRECT_URI,
+			environment.url + Constants.ENDPOINT_TOKEN
 		);
-		url.searchParams.append('state', 'login');
+		url.searchParams.append(Constants.RESPONSE_TYPE, Constants.CODE);
+		url.searchParams.append(Constants.APPROVAL_PROMPT, Constants.AUTO);
+		url.searchParams.append(Constants.SCOPE, Constants.SCOPE_PARAMS);
+		url.searchParams.append(Constants.STATE, Constants.LOGIN);
 		window.location.href = url.toString();
 	}
+	setCookie(params: QueryParams): void {
+		// TODO Encryptar y rellenar el maximo de datos de la cookie
+		this.cookieService.set(Constants.STATE, params.state, {
+			expires: 2,
+			sameSite: Constants.STRICT,
+		});
+		this.cookieService.set(Constants.CODE, params.code, {
+			expires: 2,
+			sameSite: Constants.STRICT,
+		});
+		this.cookieService.set(Constants.SCOPE, params.scope, {
+			expires: 2,
+			sameSite: Constants.STRICT,
+		});
+		// set(name: string, value: string, expires?: number | Date, path?: string, domain?: string, secure?: boolean, sameSite?: 'Lax' | 'None' | 'Strict'):
+	}
 	/**
-	 * @description Devolvemos los parametros recogidos en la respuesta de strava cuando nos autenticamos
-	 * @returns {QueryParams}
+	 * @description Devuelve si existe la cookie completa de STRAVA
+	 * @returns {boolean}
 	 */
-	getQueryParams(): QueryParams {
-		return this.#queryParams ?? null;
+	checkCookie(): boolean {
+		return (
+			this.cookieService.check(Constants.STATE) &&
+			this.cookieService.check(Constants.CODE) &&
+			this.cookieService.check(Constants.SCOPE)
+		);
 	}
-	setQueryParams(params: Params) {
-		this.#queryParams = { ...params.keys, ...params };
+	/**
+	 * @description Devuelve todos los valores de la cookie que creamos para manejar los datos del QueryParams
+	 * @returns
+	 */
+	getCookie(): { [key: string]: string } {
+		return this.cookieService.getAll();
 	}
-
+	/**
+	 * @description Devuleve el valor del parametro de la cookie solicitada
+	 * @param {string} parametro
+	 * @returns
+	 */
+	getCookieParameter(parametro: string): string {
+		return this.cookieService.get(parametro);
+	}
+	/**
+	 * @description Borra todas las cookies
+	 */
+	deleteCookie(): void {
+		this.cookieService.deleteAll();
+		this.router.navigate(['']).then(() => window.location.reload);
+	}
+	/**
+	 * @description Borra el parametro que le pasemos de la cookie
+	 * @param {string} parametro
+	 */
+	deleteCookieParameter(parametro: string): void {
+		this.cookieService.delete(parametro);
+	}
 	/**
 	 * @description Quitamos los permisos de acceso al usuario que esta navegando
 	 * @returns
@@ -77,21 +123,6 @@ export class OauthService {
 	 * @returns {Token}
 	 */
 	getToken(): Token {
-		//TODO meter esto en un interceptor
-		if (this.#token != null) {
-			if (Object.keys(this.#token).length === 0) {
-				// TODO Error personalizado de token vacio
-				this.router.navigate(['token']);
-				return this.#token;
-			}
-			if (this.#token.expires_in <= 0) {
-				// TODO Errores personalizado de token expirado
-				this.router.navigate(['token']);
-				return this.#token;
-			}
-		}
-		console.warn('getToken');
-
 		return this.#token;
 	}
 	/**
@@ -114,21 +145,17 @@ export class OauthService {
 		this.#token.expires_in = expires_in;
 		this.#token.refresh_token = refresh_token;
 		this.#token.access_token = access_token;
-		console.warn('setToken');
-	}
-	existSession(): boolean {
-		console.log(this.#token);
-		console.log(this.#token !== undefined);
-		return this.#token !== undefined;
 	}
 	/**
-	 * @description Guarda el token en local para prevenir el F5 y poder hacer el refresh token
-	 * @private
-	 * @param {Token} token
+	 * @description Devuelve si el token actual existe
+	 * @returns {boolean}
 	 */
-	private saveTokenLocal(token: Token): void {
-		console.warn('saveTokenLocal');
-		localStorage.setItem('token', JSON.stringify(token));
+	tokenExist(): boolean {
+		return (
+			this.#token != null &&
+			Object.keys(this.#token).length > 0 &&
+			this.#token.expires_in > 0
+		);
 	}
 	/**
 	 * @description Refrescamos el token de Strava
@@ -137,20 +164,19 @@ export class OauthService {
 	 */
 	refreshToken(code: string): Observable<Welcome> {
 		const headers = new HttpHeaders().append(
-			'Content-Type',
-			'application/x-www-form-urlencoded'
+			Constants.HTTP_HEADERS_CONTENT_TYPE,
+			Constants.HTTP_HEADERS_X_WWW_FORM_URLENCODED
 		);
-		console.warn('refreshToken');
 		const body: any = {};
 
 		const params = new HttpParams()
-			.append('client_id', environment.client_id)
-			.append('client_secret', environment.client_secret)
-			.append('code', code)
-			.append('grant_type', 'authorization_code');
+			.append(Constants.CLIENT_ID, environment.client_id)
+			.append(Constants.CLIENT_SECRET, environment.client_secret)
+			.append(Constants.CODE, code)
+			.append(Constants.GRANT_TYPE, Constants.AUTHORIZATION_CODE);
 
 		return this.interactionService.post<Welcome>(
-			'https://www.strava.com/oauth/token',
+			Constants.STRV_OAUTH + Constants.ENDPOINT_TOKEN,
 			body,
 			headers,
 			params

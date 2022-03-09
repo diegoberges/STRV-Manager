@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Constants } from '../utils/constants';
 
 @Injectable({
 	providedIn: 'root',
@@ -11,7 +12,7 @@ export class InteractionService {
 	get<T>(
 		endpoint: string,
 		headers: HttpHeaders = new HttpHeaders(),
-		url: string = environment.api_url
+		url: string = Constants.STRV_API
 	): Observable<T> {
 		return this.http.get<T>(`${url}${endpoint}`, { headers: headers });
 	}
@@ -21,7 +22,7 @@ export class InteractionService {
 	// }
 
 	post<T>(
-		url: string = environment.api_url,
+		url: string = Constants.STRV_API,
 		body: any = {},
 		headers: HttpHeaders = new HttpHeaders(),
 		params: HttpParams = new HttpParams(),

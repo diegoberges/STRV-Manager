@@ -5,42 +5,34 @@ import { InteractionService } from '../../core/services/interaction.service';
 import { Athlete } from 'src/app/core/models/athlete.interface';
 import { Token } from 'src/app/core/models/token.interface';
 import { AthleteZone } from '../../core/models/athlete-zone.interface';
-import { AthleteSummary } from '../../core/models/athlete-summary.interface';
+import { Observable } from 'rxjs/internal/Observable';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class AthleteService {
-	#token: Token;
-	#headers: HttpHeaders = {} as HttpHeaders;
-	#athleteBase: AthleteSummary = {} as AthleteSummary;
+	#token!: Token;
+	#headers!: HttpHeaders;
 	constructor(
 		private oauthService: OauthService,
 		private interactionService: InteractionService
 	) {
 		this.#token = this.oauthService.getToken();
-		if (this.#token != null && Object.keys(this.#token).length > 0) {
+
+		if (this.oauthService.tokenExist()) {
 			this.#headers = new HttpHeaders().append(
 				'Authorization',
 				this.#token.token_type + ' ' + this.#token.access_token
 			);
 		}
 	}
-
-	async getAthlete() {
+	getAthlete(): Observable<Athlete> {
 		return this.interactionService.get<Athlete>('/athlete', this.#headers);
 	}
-	async getZones() {
+	getZones(): Observable<AthleteZone> {
 		return this.interactionService.get<AthleteZone>(
 			'/athlete/zones',
 			this.#headers
 		);
-	}
-
-	getAtheleteBase() {
-		return this.#athleteBase;
-	}
-	setAthleteBase(athlete: AthleteSummary) {
-		this.#athleteBase.profile_medium = athlete.profile_medium;
 	}
 }

@@ -21,8 +21,8 @@ export class AthleteComponent implements OnInit {
 
 	constructor(private athleteService: AthleteService) {}
 
-	async ngOnInit() {
-		(await this.athleteService.getAthlete()).subscribe((resp) => {
+	ngOnInit() {
+		this.athleteService.getAthlete().subscribe((resp) => {
 			this.athlete = resp;
 			this.athlete.clubs.forEach((club) => (club.type = TypeObject.Club));
 			this.athlete.shoes.forEach((shoe) => (shoe.type = TypeObject.Shoe));
@@ -30,13 +30,11 @@ export class AthleteComponent implements OnInit {
 
 			this.createBreadItems(resp);
 			this.createPanelItems(resp);
-
-			// console.log(resp);
 		});
 
-		// (await this.athleteService.getZones()).subscribe((zonas) => {
-		// 	console.log(zonas);
-		// });
+		this.athleteService.getZones().subscribe((zonas) => {
+			console.log(zonas);
+		});
 	}
 
 	private createBreadItems(athlete: Athlete): void {

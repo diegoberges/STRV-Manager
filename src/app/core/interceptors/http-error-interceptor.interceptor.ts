@@ -13,7 +13,7 @@ import { OauthService } from '../services/oauth.service';
 	providedIn: 'root',
 })
 export class HttpErrorInterceptor implements HttpInterceptor {
-	constructor(private _oauth: OauthService) {}
+	constructor(private oauthService: OauthService) {}
 
 	intercept(
 		request: HttpRequest<any>,
@@ -29,18 +29,15 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 					// backend error
 					errorMessage = `Server-side error: ${error.status} ${error.error.message}`;
 				}
-				//TODO aquí se abrirá la ventana de gestión de errores
-				console.log(error);
-				console.log(errorMessage);
 
 				if (error.status === Errors.BadRequest) {
-					// this._oauth.getQueryParams();
-					// TODO Navigate a ''
+					this.oauthService.deleteCookie();
+					console.warn('Error 400');
 					console.error(error.status);
 				}
 				if (error.status === Errors.Unauthorized) {
-					// this._oauth.getQueryParams();
-					// TODO Navigate a ''
+					this.oauthService.deleteCookie();
+					console.warn('Error 401');
 					console.error(error.status);
 				}
 				// aquí podrías agregar código que muestre el error en alguna parte fija de la pantalla.
