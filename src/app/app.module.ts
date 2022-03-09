@@ -17,6 +17,7 @@ import { NgZorroAntdModule } from './core/modules/ng-zorro-antd.module';
 import { BreadcrumbComponent } from './components/ui/breadcrumb/breadcrumb.component';
 import { GridComponent } from './components/ui/grid/grid.component';
 import { BaseComponent } from './components/base/base.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 registerLocaleData(es);
 @NgModule({
@@ -28,6 +29,7 @@ registerLocaleData(es);
 		BreadcrumbComponent,
 		GridComponent,
 		BaseComponent,
+		PageNotFoundComponent,
 	],
 	imports: [
 		BrowserModule,
