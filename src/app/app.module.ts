@@ -5,6 +5,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 // Components
 import { AppComponent } from './app.component';
 import { TokenComponent } from './components/token/token.component';
+import { BreadcrumbComponent } from './components/ui/breadcrumb/breadcrumb.component';
+import { GridComponent } from './components/ui/grid/grid.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 // Interceptors
 import { HttpErrorInterceptor } from './core/interceptors/http-error-interceptor.interceptor';
 import { AthleteComponent } from './components/athlete/athlete.component';
@@ -13,10 +16,6 @@ import es from '@angular/common/locales/es';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroAntdModule } from './core/modules/ng-zorro-antd.module';
-import { BreadcrumbComponent } from './components/ui/breadcrumb/breadcrumb.component';
-import { GridComponent } from './components/ui/grid/grid.component';
-import { BaseComponent } from './components/base/base.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 registerLocaleData(es);
 @NgModule({
@@ -26,7 +25,6 @@ registerLocaleData(es);
 		AthleteComponent,
 		BreadcrumbComponent,
 		GridComponent,
-		BaseComponent,
 		PageNotFoundComponent,
 	],
 	imports: [

@@ -3,14 +3,13 @@ import { TypeObject } from 'src/app/core/enums/type-object';
 import { Bike } from 'src/app/core/models/bike.interface';
 import { Club } from 'src/app/core/models/club.interface';
 import { Shoe } from 'src/app/core/models/shoe.interface';
-import { BaseComponent } from '../../base/base.component';
 
 @Component({
 	selector: 'ui-grid',
 	templateUrl: './grid.component.html',
 	styleUrls: ['./grid.component.scss'],
 })
-export class GridComponent extends BaseComponent {
+export class GridComponent {
 	@Input() items: (Bike | Shoe | Club | any)[] = [];
 	columns: string[] = [];
 	tipo!: TypeObject;
