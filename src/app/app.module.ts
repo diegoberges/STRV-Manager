@@ -5,7 +5,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 // Components
 import { AppComponent } from './app.component';
 import { TokenComponent } from './components/token/token.component';
-import { OauthComponent } from './components/oauth/oauth.component';
 // Interceptors
 import { HttpErrorInterceptor } from './core/interceptors/http-error-interceptor.interceptor';
 import { AthleteComponent } from './components/athlete/athlete.component';
@@ -24,7 +23,6 @@ registerLocaleData(es);
 	declarations: [
 		AppComponent,
 		TokenComponent,
-		OauthComponent,
 		AthleteComponent,
 		BreadcrumbComponent,
 		GridComponent,
