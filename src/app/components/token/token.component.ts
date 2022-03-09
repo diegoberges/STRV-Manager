@@ -3,40 +3,26 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { QueryParams } from 'src/app/core/models/queryparams.interface';
 import { Welcome } from 'src/app/core/models/welcome.interface';
 import { OauthService } from 'src/app/core/services/oauth.service';
+import { AthleteService } from '../athlete/athlete.service';
 
 @Component({
 	selector: 'app-token',
 	templateUrl: './token.component.html',
 })
 export class TokenComponent implements OnInit {
-	#params: QueryParams | undefined;
+	#params!: QueryParams;
 	constructor(
 		private route: ActivatedRoute,
+		private router: Router,
 		private oauthService: OauthService,
-		private router: Router
+		private athleteService: AthleteService
 	) {}
-
 	ngOnInit(): void {
-		this.route.queryParams.subscribe((p) => {
-			this.#params = this.oauthService.getQueryParams(p);
+		console.error('token');
+		this.route.queryParams.subscribe(async (params) => {
+			this.#params = { ...params.keys, ...params };
+			// TODO Establecemos cookie
+			document.cookie = 'code=' + this.#params.code;
 		});
-
-		if (this.#params != null) {
-			this.oauthService
-				.refreshToken(this.#params.code)
-				.subscribe((resp: Welcome) => {
-					this.oauthService.setToken(
-						resp.token_type,
-						resp.expires_at,
-						resp.expires_in,
-						resp.refresh_token,
-						resp.access_token
-					);
-
-					if (this.oauthService.getToken().access_token != null) {
-						this.router.navigate(['athlete']);
-					}
-				});
-		}
 	}
 }

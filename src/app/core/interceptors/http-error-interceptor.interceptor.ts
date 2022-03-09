@@ -5,8 +5,7 @@ import {
 	HttpEvent,
 	HttpInterceptor,
 } from '@angular/common/http';
-import { throwError, Observable } from 'rxjs';
-import { catchError } from 'rxjs/internal/operators';
+import { throwError, Observable, catchError } from 'rxjs';
 import { Errors } from '../enums/errors';
 import { OauthService } from '../services/oauth.service';
 
@@ -35,10 +34,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 				console.log(errorMessage);
 
 				if (error.status === Errors.BadRequest) {
-					this._oauth.getRequestAccessUrl();
+					// this._oauth.getQueryParams();
+					// TODO Navigate a ''
+					console.error(error.status);
 				}
 				if (error.status === Errors.Unauthorized) {
-					this._oauth.getRequestAccessUrl();
+					// this._oauth.getQueryParams();
+					// TODO Navigate a ''
+					console.error(error.status);
 				}
 				// aquí podrías agregar código que muestre el error en alguna parte fija de la pantalla.
 				// this.errorService.show(errorMessage);

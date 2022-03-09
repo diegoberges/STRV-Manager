@@ -19,7 +19,7 @@ export class AthleteService {
 		private interactionService: InteractionService
 	) {
 		this.#token = this.oauthService.getToken();
-		if (Object.keys(this.#token).length > 0) {
+		if (this.#token != null && Object.keys(this.#token).length > 0) {
 			this.#headers = new HttpHeaders().append(
 				'Authorization',
 				this.#token.token_type + ' ' + this.#token.access_token
