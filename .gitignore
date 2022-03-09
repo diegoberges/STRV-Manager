@@ -29,3 +29,4 @@ e2e/*.map
 
 # Environment
 src/environments
+.angular
