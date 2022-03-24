@@ -1,14 +1,13 @@
-import { TypeObject } from '../enums/type-object';
+import { ActivityType } from '../../enums/activity-type';
 
-export interface Club {
+export interface SummaryClub {
 	id: number;
 	resource_state: number;
 	name: string;
 	profile_medium: string;
-	profile: string;
-	cover_photo?: null | string;
-	cover_photo_small?: null | string;
-	sport_type: string;
+	cover_photo: string;
+	cover_photo_small: string;
+	sport_type: ActivityType;
 	city: string;
 	state: string;
 	country: string;
@@ -20,5 +19,4 @@ export interface Club {
 	membership: string;
 	admin: boolean;
 	owner: boolean;
-	type: TypeObject;
 }

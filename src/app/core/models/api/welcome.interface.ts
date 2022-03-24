@@ -1,4 +1,4 @@
-import { AthleteSummary } from './athlete-summary.interface';
+import { SummaryAthlete } from './../strava/summary-athlete.interface';
 
 export interface Welcome {
 	token_type: string;
@@ -6,5 +6,5 @@ export interface Welcome {
 	expires_in: number;
 	refresh_token: string;
 	access_token: string;
-	athlete: AthleteSummary;
+	athlete: SummaryAthlete;
 }

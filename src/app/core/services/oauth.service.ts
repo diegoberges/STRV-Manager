@@ -4,9 +4,9 @@ import { HttpHeaders, HttpParams } from '@angular/common/http';
 import { InteractionService } from './interaction.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { Router } from '@angular/router';
-import { Token } from '../models/token.interface';
-import { QueryParams } from '../models/queryparams.interface';
-import { Welcome } from '../models/welcome.interface';
+import { Token } from '../models/api/token.interface';
+import { QueryParams } from '../models/api/queryparams.interface';
+import { Welcome } from '../models/api/welcome.interface';
 import { CookieService } from 'ngx-cookie-service';
 import { Constants } from '../utils/constants';
 @Injectable({
@@ -83,7 +83,8 @@ export class OauthService {
 	 */
 	deleteCookie(): void {
 		this.cookieService.deleteAll();
-		this.router.navigate(['']).then(() => window.location.reload);
+		location.href = '/';
+		// this.router.navigate(['']).then(() => window.location.reload);
 	}
 	/**
 	 * @description Borra el parametro que le pasemos de la cookie
@@ -99,8 +100,8 @@ export class OauthService {
 	deauthorize() {
 		// TODO Esta a medias, falta mirar doc para saber como cerrar el token de trabajo
 		const headers = new HttpHeaders().append(
-			'Content-Type',
-			'application/x-www-form-urlencoded'
+			Constants.HTTP_HEADERS_CONTENT_TYPE,
+			Constants.HTTP_HEADERS_X_WWW_FORM_URLENCODED
 		);
 
 		const body: any = {};
@@ -112,7 +113,7 @@ export class OauthService {
 		// .append('grant_type', 'authorization_code');
 		console.warn('deauthorize');
 		return this.interactionService.post(
-			'https://www.strava.com/oauth/deauthorize',
+			Constants.STRV_OAUTH + Constants.ENDPOINT_DEAUTHORIZE,
 			body,
 			headers,
 			params

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AthleteSummary } from './core/models/athlete-summary.interface';
-import { AthleteService } from './components/athlete/athlete.service';
+import { SummaryAthlete } from './core/models/strava/summary-athlete.interface';
 import { OauthService } from './core/services/oauth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QueryParams } from 'src/app/core/models/queryparams.interface';
 import { Constants } from './core/utils/constants';
-import { Token } from './core/models/token.interface';
+import { Token } from './core/models/api/token.interface';
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
@@ -13,8 +11,8 @@ import { Token } from './core/models/token.interface';
 })
 export class AppComponent implements OnInit {
 	title: string = 'STRV Manager';
-	isCollapsed: boolean = false;
-	athlete: AthleteSummary = {} as AthleteSummary;
+	isCollapsed: boolean = true;
+	athlete: SummaryAthlete = {} as SummaryAthlete;
 	#token!: Token;
 	constructor(
 		private route: ActivatedRoute,
@@ -40,7 +38,6 @@ export class AppComponent implements OnInit {
 					this.router.navigate(['athlete']);
 				});
 		} else {
-			console.warn('initSession()');
 			this.oauthService.initSession();
 		}
 	}

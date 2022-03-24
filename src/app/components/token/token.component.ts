@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { QueryParams } from 'src/app/core/models/queryparams.interface';
+import { QueryParams } from 'src/app/core/models/api/queryparams.interface';
 import { OauthService } from 'src/app/core/services/oauth.service';
 @Component({
 	selector: 'app-token',

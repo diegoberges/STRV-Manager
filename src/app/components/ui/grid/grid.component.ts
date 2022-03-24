@@ -1,8 +1,6 @@
 import { Component, Input, Type } from '@angular/core';
 import { TypeObject } from 'src/app/core/enums/type-object';
-import { Bike } from 'src/app/core/models/bike.interface';
-import { Club } from 'src/app/core/models/club.interface';
-import { Shoe } from 'src/app/core/models/shoe.interface';
+import { SummaryClub } from 'src/app/core/models/strava/summary-club.interface';
 
 @Component({
 	selector: 'ui-grid',
@@ -10,31 +8,30 @@ import { Shoe } from 'src/app/core/models/shoe.interface';
 	styleUrls: ['./grid.component.scss'],
 })
 export class GridComponent {
-	@Input() items: (Bike | Shoe | Club | any)[] = [];
+	@Input() items: /*Bike | Shoe | */ (SummaryClub | any)[] = [];
 	columns: string[] = [];
 	tipo!: TypeObject;
 	ngOnInit() {
 		this.createColumns(this.items);
 	}
-	private createColumns(items: (Bike | Shoe | Club)[]): void {
-		if (Array.isArray(items) && items[0].type != null) {
-			this.tipo = items[0].type;
-
-			switch (this.tipo) {
-				case TypeObject.Club: {
-					this.createClubData(this.tipo);
-					break;
-				}
-				case TypeObject.Bike:
-				case TypeObject.Shoe: {
-					this.createEquipmentData(this.tipo);
-					break;
-				}
-				default: {
-					break;
-				}
-			}
-		}
+	private createColumns(items: /*Bike | Shoe | */ SummaryClub[]): void {
+		// if (Array.isArray(items) && items[0].type != null) {
+		// 	this.tipo = items[0].type;
+		// 	switch (this.tipo) {
+		// 		case TypeObject.Club: {
+		// 			this.createClubData(this.tipo);
+		// 			break;
+		// 		}
+		// 		case TypeObject.Bike:
+		// 		case TypeObject.Shoe: {
+		// 			this.createEquipmentData(this.tipo);
+		// 			break;
+		// 		}
+		// 		default: {
+		// 			break;
+		// 		}
+		// 	}
+		// }
 	}
 	private createClubData(tipo: TypeObject): void {
 		this.columns = ['', '', 'Nombre', 'Deporte', 'Localización'];

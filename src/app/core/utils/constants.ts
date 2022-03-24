@@ -1,4 +1,5 @@
 export class Constants {
+	//#region Share
 	static readonly STATE = 'state';
 	static readonly CODE = 'code';
 	static readonly SCOPE = 'scope';
@@ -8,6 +9,7 @@ export class Constants {
 
 	static readonly ENDPOINT_AUTHORIZE = '/authorize';
 	static readonly ENDPOINT_TOKEN = '/token';
+	static readonly ENDPOINT_DEAUTHORIZE = '/deauthorize';
 	static readonly CLIENT_ID = 'client_id';
 	static readonly CLIENT_SECRET = 'client_secret';
 	static readonly REDIRECT_URI = 'redirect_uri';
@@ -23,4 +25,11 @@ export class Constants {
 	static readonly HTTP_HEADERS_CONTENT_TYPE = 'Content-Type';
 	static readonly HTTP_HEADERS_X_WWW_FORM_URLENCODED =
 		'application/x-www-form-urlencoded';
+	static readonly AUTHORIZATION = 'Authorization';
+	//#endregion
+
+	//#region Athlete
+	static readonly ENDPOINT_ATHLETE = '/athlete';
+	static readonly ENDPOINT_ZONES = '/athlete/zones';
+	//#endregion
 }
