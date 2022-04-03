@@ -3,6 +3,7 @@ import { TypeObject } from 'src/app/core/enums/type-object';
 import { DetailedAthlete } from 'src/app/core/models/strava/detailed-athlete.interface';
 import { Panel } from 'src/app/core/models/ui/panel.interface';
 import { AthleteService } from './athlete.service';
+import { ActivityStats } from '../../core/models/strava/activity-stats.interface';
 
 @Component({
 	selector: 'app-athlete',
@@ -13,22 +14,27 @@ export class AthleteComponent implements OnInit {
 	//#region Propiedades
 	athlete: DetailedAthlete = {} as DetailedAthlete;
 	itemsBread: string[] = [];
-	#name: string = '';
-	#username: string = '';
 	#items: string[] = new Array<string>();
 	panels: Panel[] = new Array<Panel>();
+	statics: ActivityStats = {} as ActivityStats;
 	//#endregion
 
 	constructor(private athleteService: AthleteService) {}
 
 	ngOnInit() {
 		this.athleteService.getAthlete().subscribe((resp) => {
-			// this.athlete = resp;
+			// console.log(resp);
+			this.athlete = resp;
 			// this.athlete.clubs.forEach((club) => (club.type = TypeObject.Club));
 			// this.athlete.shoes.forEach((shoe) => (shoe.type = TypeObject.Shoe));
 			// this.athlete.bikes.forEach((bike) => (bike.type = TypeObject.Bike));
 			// this.createBreadItems(resp);
 			// this.createPanelItems(resp);
+			this.athleteService.setAthleteId(this.athlete.id);
+			this.athleteService.getStats().subscribe((stats) => {
+				this.statics = stats;
+				// console.log(this.statics);
+			});
 		});
 
 		// this.athleteService.getZones().subscribe((zonas) => {

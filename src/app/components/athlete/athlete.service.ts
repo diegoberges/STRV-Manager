@@ -6,6 +6,7 @@ import { DetailedAthlete } from 'src/app/core/models/strava/detailed-athlete.int
 import { Token } from 'src/app/core/models/api/token.interface';
 import { Observable } from 'rxjs/internal/Observable';
 import { Constants } from 'src/app/core/utils/constants';
+import { ActivityStats } from '../../core/models/strava/activity-stats.interface';
 
 @Injectable({
 	providedIn: 'root',
@@ -13,6 +14,7 @@ import { Constants } from 'src/app/core/utils/constants';
 export class AthleteService {
 	#token!: Token;
 	#headers!: HttpHeaders;
+	#athleteId!: number;
 	constructor(
 		private oauthService: OauthService,
 		private interactionService: InteractionService
@@ -31,6 +33,20 @@ export class AthleteService {
 			Constants.ENDPOINT_ATHLETE,
 			this.#headers
 		);
+	}
+	getStats(): Observable<ActivityStats> {
+		// const extraParams = params ? paramsToString(params) : '';
+		// `${this.urlBase}${this.module}${endpoint}${extraParams}`,
+		return this.interactionService.get<ActivityStats>(
+			'/athletes/' + this.#athleteId + '/stats',
+			this.#headers
+		);
+	}
+	getAthleteId(): number {
+		return this.#athleteId;
+	}
+	setAthleteId(id: number) {
+		this.#athleteId = id;
 	}
 	// getActivities(): Observable<>{
 	// 	return this.interactionService.get<>('/athlete/activities', this.#headers);

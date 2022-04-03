@@ -4,6 +4,7 @@ import { OauthService } from './core/services/oauth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Constants } from './core/utils/constants';
 import { Token } from './core/models/api/token.interface';
+import { AthleteService } from './components/athlete/athlete.service';
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',

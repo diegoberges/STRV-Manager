@@ -11,6 +11,7 @@ import { BreadcrumbComponent } from './components/ui/breadcrumb/breadcrumb.compo
 import { GridComponent } from './components/ui/grid/grid.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AthleteComponent } from './components/athlete/athlete.component';
+import { StatsComponent } from './components/ui/stats-component/stats.component';
 // Interceptors
 import { HttpErrorInterceptor } from './core/interceptors/http-error-interceptor.interceptor';
 //Locale
@@ -20,6 +21,7 @@ import es from '@angular/common/locales/es';
 import { NgZorroAntdModule } from './core/modules/ng-zorro-antd.module';
 //Services
 import { CookieService } from 'ngx-cookie-service';
+import { StatComponentComponent } from './components/ui/stat-component/stat-component.component';
 
 registerLocaleData(es);
 @NgModule({
@@ -30,6 +32,8 @@ registerLocaleData(es);
 		BreadcrumbComponent,
 		GridComponent,
 		PageNotFoundComponent,
+		StatsComponent,
+  StatComponentComponent,
 	],
 	imports: [
 		BrowserModule,
