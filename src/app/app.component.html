@@ -9,12 +9,12 @@
 		<ul nz-menu nzTheme="dark" nzMode="inline">
 			<li nz-menu-item>
 				<em nz-icon nzType="user"></em>
-				<span>Athlete</span>
+				<span>{{ 'MENU.PROFILE' | translate }}</span>
 			</li>
-			<li nz-submenu nzTitle="Team" nzIcon="team">
+			<li nz-submenu nzTitle="{{ 'MENU.SPORTS' | translate }}" nzIcon="team">
 				<ul>
-					<li nz-menu-item>Running</li>
-					<li nz-menu-item>Bike</li>
+					<li nz-menu-item>{{ 'SPORTS.RUNNING' | translate }}</li>
+					<li nz-menu-item>{{ 'SPORTS.BIKE' | translate }}</li>
 				</ul>
 			</li>
 		</ul>

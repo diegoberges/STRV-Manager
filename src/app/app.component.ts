@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { SummaryAthlete } from './core/models/strava/summary-athlete.interface';
 import { OauthService } from './core/services/oauth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Constants } from './core/utils/constants';
-import { Token } from './core/models/api/token.interface';
-import { AthleteService } from './components/athlete/athlete.service';
+import { TranslateService } from '@ngx-translate/core';
+import { LanguajeType } from './core/enums/languaje-type';
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-	title: string = 'STRV Manager';
 	isCollapsed: boolean = true;
 	athlete: SummaryAthlete = {} as SummaryAthlete;
-	#token!: Token;
 	constructor(
-		private route: ActivatedRoute,
 		private router: Router,
-		private oauthService: OauthService
+		private oauthService: OauthService,
+		private translateService: TranslateService
 	) {}
 
 	ngOnInit() {
+		this.translateService.setDefaultLang(LanguajeType.Spanish);
+
 		if (this.oauthService.checkCookie()) {
 			this.oauthService
 				.refreshToken(this.oauthService.getCookieParameter(Constants.CODE))
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
 						resp.access_token
 					);
 
-					this.router.navigate(['athlete']);
+					this.router.navigate([Constants.ROUTE_ATHLETE]);
 				});
 		} else {
 			this.oauthService.initSession();
