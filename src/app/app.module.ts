@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import {
+	HTTP_INTERCEPTORS,
+	HttpClientModule,
+	HttpClient,
+} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Components
@@ -22,7 +26,9 @@ import { NgZorroAntdModule } from './core/modules/ng-zorro-antd.module';
 //Services
 import { CookieService } from 'ngx-cookie-service';
 import { StatComponentComponent } from './components/ui/stat-component/stat-component.component';
-
+//Translation
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 registerLocaleData(es);
 @NgModule({
 	declarations: [
@@ -33,7 +39,7 @@ registerLocaleData(es);
 		GridComponent,
 		PageNotFoundComponent,
 		StatsComponent,
-  StatComponentComponent,
+		StatComponentComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -42,6 +48,15 @@ registerLocaleData(es);
 		FormsModule,
 		BrowserAnimationsModule,
 		NgZorroAntdModule,
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: (http: HttpClient) => {
+					return new TranslateHttpLoader(http);
+				},
+				deps: [HttpClient],
+			},
+		}),
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },

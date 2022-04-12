@@ -33,4 +33,8 @@ export class Constants {
 	static readonly ENDPOINT_ZONES = '/athlete/zones';
 	static readonly ENDPOINT_ATHLETE_STATS = '/athletes/${parameter}/stat';
 	//#endregion
+
+	//#region ROUTES
+	static readonly ROUTE_ATHLETE = 'athlete';
+	//#endregion
 }
