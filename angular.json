@@ -3,7 +3,7 @@
 	"version": 1,
 	"newProjectRoot": "projects",
 	"projects": {
-		"StravaCleaner": {
+		"STRVManager": {
 			"projectType": "application",
 			"schematics": {
 				"@schematics/angular:component": {
@@ -20,7 +20,7 @@
 				"build": {
 					"builder": "@ngx-env/builder:browser",
 					"options": {
-						"outputPath": "dist/StravaCleaner",
+						"outputPath": "dist/STRVManager",
 						"index": "src/index.html",
 						"main": "src/main.ts",
 						"polyfills": "src/polyfills.ts",
@@ -46,8 +46,8 @@
 							"budgets": [
 								{
 									"type": "initial",
-									"maximumWarning": "1mb",
-									"maximumError": "2mb"
+									"maximumWarning": "2mb",
+									"maximumError": "3mb"
 								},
 								{
 									"type": "anyComponentStyle",
@@ -78,10 +78,10 @@
 					"builder": "@ngx-env/builder:dev-server",
 					"configurations": {
 						"production": {
-							"browserTarget": "StravaCleaner:build:production"
+							"browserTarget": "STRVManager:build:production"
 						},
 						"development": {
-							"browserTarget": "StravaCleaner:build:development"
+							"browserTarget": "STRVManager:build:development"
 						}
 					},
 					"defaultConfiguration": "development"
@@ -89,7 +89,7 @@
 				"extract-i18n": {
 					"builder": "@ngx-env/builder:extract-i18n",
 					"options": {
-						"browserTarget": "StravaCleaner:build"
+						"browserTarget": "STRVManager:build"
 					}
 				},
 				"test": {
@@ -116,5 +116,5 @@
 			"style": "scss"
 		}
 	},
-	"defaultProject": "StravaCleaner"
+	"defaultProject": "STRVManager"
 }
