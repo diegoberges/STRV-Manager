@@ -1,6 +1,6 @@
 export const environment = {
-	production: false,
-	client_id: process.env.CLIENT_ID,
-	url: process.env.URL,
-	client_secret: process.env.CLIENT_SECRET,
+	production: process.env.NG_APP_PRODUCTION,
+	client_id: process.env.NG_APP_CLIENT_ID,
+	url: process.env.NG_APP_URL,
+	client_secret: process.env.NG_APP_CLIENT_SECRET,
 };
