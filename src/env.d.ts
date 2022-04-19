@@ -1,8 +1,7 @@
 declare var process: {
 	env: {
-		NG_APP_ENV: string;
-		URL: string;
-		CLIENT_SECRET: string;
-		CLIENT_ID: string;
+		NG_APP_URL: string;
+		NG_APP_CLIENT_SECRET: string;
+		NG_APP_CLIENT_ID: string;
 	};
 };

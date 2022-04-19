@@ -30,3 +30,4 @@ e2e/*.map
 # Environment
 .angular
 .env
+.vercel
