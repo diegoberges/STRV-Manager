@@ -22,9 +22,9 @@ export class AppComponent implements OnInit {
 	ngOnInit() {
 		this.translateService.setDefaultLang(LanguajeType.Spanish);
 
-		if (this.oauthService.checkCookie()) {
+		if (this.oauthService.checkLocalStorage()) {
 			this.oauthService
-				.refreshToken(this.oauthService.getCookieParameter(Constants.CODE))
+				.refreshToken(this.oauthService.getItem(Constants.CODE))
 				.subscribe((resp) => {
 					this.athlete = resp.athlete;
 

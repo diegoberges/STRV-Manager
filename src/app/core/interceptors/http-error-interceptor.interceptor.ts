@@ -31,12 +31,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 				}
 
 				if (error.status === Errors.BadRequest) {
-					this.oauthService.deleteCookie();
+					this.oauthService.clear();
 					console.warn('Error 400');
 					console.error(error.status);
 				}
 				if (error.status === Errors.Unauthorized) {
-					this.oauthService.deleteCookie();
+					this.oauthService.clear();
 					console.warn('Error 401');
 					console.error(error.status);
 				}
