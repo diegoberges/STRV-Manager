@@ -16,6 +16,7 @@ import { GridComponent } from './components/ui/grid/grid.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AthleteComponent } from './components/athlete/athlete.component';
 import { StatsComponent } from './components/ui/stats-component/stats.component';
+import { StatComponentComponent } from './components/ui/stat-component/stat-component.component';
 // Interceptors
 import { HttpErrorInterceptor } from './core/interceptors/http-error-interceptor.interceptor';
 //Locale
@@ -23,9 +24,6 @@ import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 // Modules
 import { NgZorroAntdModule } from './core/modules/ng-zorro-antd.module';
-//Services
-import { CookieService } from 'ngx-cookie-service';
-import { StatComponentComponent } from './components/ui/stat-component/stat-component.component';
 //Translation
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -60,7 +58,6 @@ registerLocaleData(es);
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-		CookieService,
 	],
 	bootstrap: [AppComponent],
 })

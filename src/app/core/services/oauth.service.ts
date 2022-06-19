@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { Token } from '../models/api/token.interface';
 import { QueryParams } from '../models/api/queryparams.interface';
 import { Welcome } from '../models/api/welcome.interface';
-import { CookieService } from 'ngx-cookie-service';
 import { Constants } from '../utils/constants';
 @Injectable({
 	providedIn: 'root',
@@ -16,8 +15,7 @@ export class OauthService {
 	#token: Token = {} as Token;
 	constructor(
 		private interactionService: InteractionService,
-		private router: Router,
-		private cookieService: CookieService
+		private router: Router
 	) {}
 	/**
 	 * @description Petición de permisos a Strava
@@ -36,62 +34,31 @@ export class OauthService {
 		url.searchParams.append(Constants.STATE, Constants.LOGIN);
 		window.location.href = url.toString();
 	}
-	setCookie(params: QueryParams): void {
-		// TODO Encryptar y rellenar el maximo de datos de la cookie
-		this.cookieService.set(Constants.STATE, params.state, {
-			expires: 2,
-			sameSite: Constants.STRICT,
-		});
-		this.cookieService.set(Constants.CODE, params.code, {
-			expires: 2,
-			sameSite: Constants.STRICT,
-		});
-		this.cookieService.set(Constants.SCOPE, params.scope, {
-			expires: 2,
-			sameSite: Constants.STRICT,
-		});
-		// set(name: string, value: string, expires?: number | Date, path?: string, domain?: string, secure?: boolean, sameSite?: 'Lax' | 'None' | 'Strict'):
+	setLocalStorage(params: QueryParams): void {
+		localStorage.setItem(Constants.STATE, params.state);
+		localStorage.setItem(Constants.CODE, params.code);
+		localStorage.setItem(Constants.SCOPE, params.scope);
 	}
 	/**
-	 * @description Devuelve si existe la cookie completa de STRAVA
+	 * @description Devuelve si existe el code de conexion a STRAVA
 	 * @returns {boolean}
 	 */
-	checkCookie(): boolean {
-		return (
-			this.cookieService.check(Constants.STATE) &&
-			this.cookieService.check(Constants.CODE) &&
-			this.cookieService.check(Constants.SCOPE)
-		);
+	checkLocalStorage(): boolean {
+		return localStorage.getItem(Constants.CODE) != null;
 	}
 	/**
-	 * @description Devuelve todos los valores de la cookie que creamos para manejar los datos del QueryParams
+	 * @description Devuelve el valor del item buscado en el localstorage
 	 * @returns
 	 */
-	getCookie(): { [key: string]: string } {
-		return this.cookieService.getAll();
+	getItem(item: string): string {
+		return localStorage.getItem(item) ?? '';
 	}
 	/**
-	 * @description Devuleve el valor del parametro de la cookie solicitada
-	 * @param {string} parametro
-	 * @returns
+	 * @description Borra todo el localstorage
 	 */
-	getCookieParameter(parametro: string): string {
-		return this.cookieService.get(parametro);
-	}
-	/**
-	 * @description Borra todas las cookies
-	 */
-	deleteCookie(): void {
-		this.cookieService.deleteAll();
+	clear(): void {
+		localStorage.clear();
 		location.href = '/';
-		// this.router.navigate(['']).then(() => window.location.reload);
-	}
-	/**
-	 * @description Borra el parametro que le pasemos de la cookie
-	 * @param {string} parametro
-	 */
-	deleteCookieParameter(parametro: string): void {
-		this.cookieService.delete(parametro);
 	}
 	/**
 	 * @description Quitamos los permisos de acceso al usuario que esta navegando
