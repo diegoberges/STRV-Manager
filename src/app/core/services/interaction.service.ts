@@ -8,13 +8,19 @@ import { Constants } from '../utils/constants';
 	providedIn: 'root',
 })
 export class InteractionService {
-	constructor(private http: HttpClient) {}
+	#url: string;
+	constructor(private http: HttpClient) {
+		this.#url = Constants.STRV_API;
+	}
 	get<T>(
 		endpoint: string,
 		headers: HttpHeaders = new HttpHeaders(),
-		url: string = Constants.STRV_API
+		parameters?: HttpParams
 	): Observable<T> {
-		return this.http.get<T>(`${url}${endpoint}`, { headers: headers });
+		return this.http.get<T>(`${this.#url}${endpoint}`, {
+			headers: headers,
+			params: parameters,
+		});
 	}
 
 	// put(path: string, body: Object = {}): Observable<any> {
@@ -22,12 +28,15 @@ export class InteractionService {
 	// }
 
 	post<T>(
-		url: string = Constants.STRV_API,
+		url?: string,
 		body: any = {},
 		headers: HttpHeaders = new HttpHeaders(),
 		params: HttpParams = new HttpParams(),
 		endpoint: string = ''
 	): Observable<T> {
+		if (url === null) {
+			url = this.#url;
+		}
 		return this.http.post<T>(`${url}${endpoint}`, body, {
 			headers: headers,
 			params: params,
