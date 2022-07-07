@@ -43,4 +43,22 @@ export interface SummaryActivity {
 	device_watts: boolean;
 	max_watts: number;
 	weighted_average_watts: number;
+	resource_state: number;
+	sport_type: string;
+	utc_offset: number;
+	location_city?: any;
+	location_state?: any;
+	location_country: string;
+	visibility: string;
+	average_cadence: number;
+	average_temp: number;
+	has_heartrate: boolean;
+	average_heartrate: number;
+	max_heartrate: number;
+	heartrate_opt_out: boolean;
+	display_hide_heartrate_option: boolean;
+	upload_id_str: string;
+	from_accepted_tag: boolean;
+	pr_count: number;
+	suffer_score: number;
 }
