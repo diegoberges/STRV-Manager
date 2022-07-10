@@ -1,0 +1,32 @@
+<div nz-row [nzGutter]="16" [hidden]="stat != undefined && stat.count == 0">
+	<nz-col [nzSpan]="4">
+		<nz-statistic
+			[nzValue]="stat.count!"
+			[nzTitle]="'Nº Actividades'"
+		></nz-statistic
+	></nz-col>
+	<nz-col [nzSpan]="4">
+		<nz-statistic
+			[nzValue]="stat.distance!"
+			[nzTitle]="'Distancia'"
+		></nz-statistic
+	></nz-col>
+	<nz-col [nzSpan]="4">
+		<nz-statistic
+			[nzValue]="stat.elapsed_time!"
+			[nzTitle]="'Tiempo Transcurrido'"
+		></nz-statistic
+	></nz-col>
+	<nz-col [nzSpan]="4">
+		<nz-statistic
+			[nzValue]="(stat.elevation_gain | number)!"
+			[nzTitle]="'Desnivel'"
+		></nz-statistic
+	></nz-col>
+	<nz-col [nzSpan]="4">
+		<nz-statistic
+			[nzValue]="(stat.moving_time | number)!"
+			[nzTitle]="'Tiempo en Movimiento'"
+		></nz-statistic
+	></nz-col>
+</div>

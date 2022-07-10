@@ -1,0 +1,58 @@
+<ui-breadcrumb [items]="itemsBread"></ui-breadcrumb>
+<div class="inner-content">
+	<!-- Actividades -->
+	<nz-table #actividades [nzData]="activities">
+		<thead>
+			<tr>
+				<th id="Fecha">Fecha</th>
+				<th id="Tipo">Tipo</th>
+				<th id="Actividad">Actividad</th>
+				<th id="Tiempo">Tiempo</th>
+				<th id="Ritmo">Ritmo</th>
+				<th id="HR Medio">HR Medio</th>
+				<th id="HR MAX">HR MAX</th>
+			</tr>
+			<!-- <tr>
+				<th
+					*ngFor="let column of activitiesColumns"
+					[nzSortOrder]="column.sortOrder"
+					[nzSortFn]="column.sortFn"
+					[nzSortDirections]="column.sortDirections"
+					[nzFilterMultiple]="column.filterMultiple"
+					[nzFilters]="column.listOfFilter"
+					[nzFilterFn]="column.filterFn"
+					id="column.name"
+				>
+					{{ column.name }}
+				</th>
+			</tr> -->
+		</thead>
+		<tbody>
+			<tr *ngFor="let actividad of actividades.data">
+				<td>{{ actividad.start_date_local | date: 'dd-MM-YYYY' }}</td>
+				<td>{{ actividad.type }}</td>
+				<td>{{ actividad.name }}</td>
+				<td>{{ actividad.moving_time / 60 | date: 'HH:mm:ss' }}</td>
+				<td>
+					{{ (actividad.moving_time * 60) / (actividad.distance * 1000) }}
+				</td>
+				<td>{{ actividad.average_heartrate | number: '1.0-0' }}</td>
+				<td>{{ actividad.max_heartrate | number: '1.0-0' }}</td>
+			</tr>
+		</tbody>
+	</nz-table>
+	<!-- <app-stats-component [statics]="statics"></app-stats-component> -->
+
+	<!-- <div> -->
+	<!-- <nz-collapse nzAccordion> -->
+	<!-- <nz-collapse-panel *ngFor="let panel of panels" [nzHeader]="panel.name"> -->
+	<!-- [nzActive]="panel.active" -->
+
+	<!-- <ui-grid [items]="panel.content"></ui-grid> -->
+	<!-- </nz-collapse-panel> -->
+	<!-- </nz-collapse> -->
+	<!-- </div> -->
+</div>
+<!-- Candado abierto con el blocked -->
+<!-- Follow con el can follow -->
+<!-- premium con premium -->
