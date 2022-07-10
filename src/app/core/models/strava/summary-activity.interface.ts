@@ -61,4 +61,9 @@ export interface SummaryActivity {
 	from_accepted_tag: boolean;
 	pr_count: number;
 	suffer_score: number;
+	moving_time_miliseconds: number;
+	moving_time_minutes: number;
+	distance_km: number;
+	pace: number;
+	url: string;
 }

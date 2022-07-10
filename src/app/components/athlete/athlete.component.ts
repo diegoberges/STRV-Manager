@@ -6,21 +6,6 @@ import { ActivityStats } from '../../core/models/strava/activity-stats.interface
 import { HttpParams } from '@angular/common/http';
 import { SummaryActivity } from '../../core/models/strava/summary-activity.interface';
 import { lastValueFrom } from 'rxjs';
-import {
-	NzTableFilterFn,
-	NzTableFilterList,
-	NzTableSortFn,
-	NzTableSortOrder,
-} from 'ng-zorro-antd/table';
-interface ColumnItem {
-	name: string;
-	sortOrder: NzTableSortOrder | null;
-	sortFn: NzTableSortFn<SummaryActivity> | null;
-	listOfFilter: NzTableFilterList;
-	filterFn: NzTableFilterFn<SummaryActivity> | null;
-	filterMultiple: boolean;
-	sortDirections: NzTableSortOrder[];
-}
 @Component({
 	selector: 'app-athlete',
 	templateUrl: './athlete.component.html',
@@ -35,78 +20,6 @@ export class AthleteComponent implements OnInit {
 	statics: ActivityStats = {} as ActivityStats;
 	#totalActivities: number = 0;
 	activities: SummaryActivity[] = [];
-	activitiesColumns: ColumnItem[] = [
-		{
-			name: 'Fecha',
-			sortOrder: 'ascend',
-			sortFn: null,
-			sortDirections: ['ascend', null],
-			listOfFilter: [],
-			filterFn: null,
-			filterMultiple: true,
-		},
-		{
-			name: 'Tipo',
-			sortOrder: 'ascend',
-			sortFn: (a: SummaryActivity, b: SummaryActivity) =>
-				a.type.localeCompare(b.type),
-			sortDirections: ['ascend', null],
-			listOfFilter: [],
-			filterFn: null,
-			filterMultiple: true,
-		},
-		{
-			name: 'Actividad',
-			sortOrder: 'ascend',
-			sortFn: (a: SummaryActivity, b: SummaryActivity) =>
-				a.name.localeCompare(b.name),
-			sortDirections: ['ascend', null],
-			listOfFilter: [],
-			filterFn: null,
-			filterMultiple: true,
-		},
-		{
-			name: 'Tiempo',
-			sortOrder: 'ascend',
-			sortFn: (a: SummaryActivity, b: SummaryActivity) =>
-				a.moving_time - b.moving_time,
-			sortDirections: ['ascend', null],
-			listOfFilter: [],
-			filterFn: null,
-			filterMultiple: true,
-		},
-		{
-			name: 'Ritmo',
-			sortOrder: 'ascend',
-			sortFn: (a: SummaryActivity, b: SummaryActivity) =>
-				(a.moving_time * 60) / (a.distance * 1000) -
-				(b.moving_time * 60) / (b.distance * 1000),
-			sortDirections: ['ascend', null],
-			listOfFilter: [],
-			filterFn: null,
-			filterMultiple: true,
-		},
-		{
-			name: 'HR Medio',
-			sortOrder: 'ascend',
-			sortFn: (a: SummaryActivity, b: SummaryActivity) =>
-				a.average_heartrate - b.average_heartrate,
-			sortDirections: ['ascend', null],
-			listOfFilter: [],
-			filterFn: null,
-			filterMultiple: true,
-		},
-		{
-			name: 'HR Max',
-			sortOrder: 'ascend',
-			sortFn: (a: SummaryActivity, b: SummaryActivity) =>
-				a.max_heartrate - b.max_heartrate,
-			sortDirections: ['ascend', null],
-			listOfFilter: [],
-			filterFn: null,
-			filterMultiple: true,
-		},
-	];
 	//#endregion
 
 	constructor(private athleteService: AthleteService) {}
@@ -130,39 +43,15 @@ export class AthleteComponent implements OnInit {
 				stats.all_run_totals.count +
 				stats.all_swim_totals.count;
 		});
+
+		await this.athleteService.setActivities(this.#totalActivities);
 		// this.athleteService.getZones().subscribe((zonas) => {
 		// 	console.log(zonas);
 		// });
 
-		// TODO Sacar a un metodo
-		if (sessionStorage.getItem('activities') == null) {
-			const pages = Math.ceil(this.#totalActivities / 200);
-			const promesas: Promise<SummaryActivity[]>[] = [];
+		this.activities = this.athleteService.getActivitiesByType('Run');
 
-			for (let i = 1; i <= pages; i++) {
-				let params = new HttpParams();
-				params = params.append('page', i);
-				params = params.append('per_page', '200');
-				promesas.push(lastValueFrom(this.athleteService.getActivities(params)));
-			}
-
-			await Promise.all(promesas).then(
-				(activities) => {
-					console.log(activities);
-					activities.forEach((page) => {
-						this.activities = [...this.activities, ...page];
-					});
-					// Las guardo en el sesion storage para no tener que recargarlas cada vez que entramos
-					sessionStorage.setItem('activities', JSON.stringify(this.activities));
-				},
-				(reason) => {
-					console.error(reason);
-				}
-			);
-		} else {
-			this.activities = JSON.parse(sessionStorage.getItem('activities') ?? '');
-		}
-		console.log('🚀 ~ this.activities', this.activities);
+		// console.log(this.athleteService.areActivitiesWithFlag());
 	}
 
 	// private createBreadItems(athlete: Athlete): void {
