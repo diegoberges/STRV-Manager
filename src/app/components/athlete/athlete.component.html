@@ -12,29 +12,21 @@
 				<th id="HR Medio">HR Medio</th>
 				<th id="HR MAX">HR MAX</th>
 			</tr>
-			<!-- <tr>
-				<th
-					*ngFor="let column of activitiesColumns"
-					[nzSortOrder]="column.sortOrder"
-					[nzSortFn]="column.sortFn"
-					[nzSortDirections]="column.sortDirections"
-					[nzFilterMultiple]="column.filterMultiple"
-					[nzFilters]="column.listOfFilter"
-					[nzFilterFn]="column.filterFn"
-					id="column.name"
-				>
-					{{ column.name }}
-				</th>
-			</tr> -->
 		</thead>
 		<tbody>
 			<tr *ngFor="let actividad of actividades.data">
 				<td>{{ actividad.start_date_local | date: 'dd-MM-YYYY' }}</td>
 				<td>{{ actividad.type }}</td>
-				<td>{{ actividad.name }}</td>
-				<td>{{ actividad.moving_time / 60 | date: 'HH:mm:ss' }}</td>
 				<td>
-					{{ (actividad.moving_time * 60) / (actividad.distance * 1000) }}
+					<a [href]="actividad.url" target="_blank">
+						{{ actividad.name }}
+					</a>
+				</td>
+				<td>
+					{{ actividad.moving_time_miliseconds | date: 'HH:mm:ss':'UTC' }}
+				</td>
+				<td>
+					{{ actividad.pace | date: 'mm:ss' }}
 				</td>
 				<td>{{ actividad.average_heartrate | number: '1.0-0' }}</td>
 				<td>{{ actividad.max_heartrate | number: '1.0-0' }}</td>

@@ -21,6 +21,7 @@
 		"@ngx-translate/core": "^14.0.0",
 		"@ngx-translate/http-loader": "^7.0.0",
 		"audit": "^0.0.6",
+		"cypress": "^10.3.0",
 		"fix": "^0.0.6",
 		"ng-zorro-antd": "^13.1.1",
 		"npm": "^8.5.3",
