@@ -4,9 +4,7 @@ on:
     branches:
       - main
 env:
-  NG_APP_CLIENT_ID: ${{ env.NG_APP_CLIENT_ID }},
-  NG_APP_CLIENT_SECRET: ${{ env.NG_APP_CLIENT_SECRET }},
-  NG_APP_URL: ${{ env.NG_APP_URL }}
+  NG_APP_CLIENT_ID: ${{ env.NG_APP_CLIENT_ID }}
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
