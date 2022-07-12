@@ -32,6 +32,7 @@ export class OauthService {
 		url.searchParams.append(Constants.APPROVAL_PROMPT, Constants.AUTO);
 		url.searchParams.append(Constants.SCOPE, Constants.SCOPE_PARAMS);
 		url.searchParams.append(Constants.STATE, Constants.LOGIN);
+		console.log('url ', url.toString());
 		window.location.href = url.toString();
 	}
 	setLocalStorage(params: QueryParams): void {
