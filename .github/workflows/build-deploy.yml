@@ -26,6 +26,7 @@ jobs:
         run: |
           npm install
           npm run-script deploy
+          echo $NG_APP_CLIENT_ID && $NG_APP_CLIENT_SECRET && $NG_APP_URL
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
