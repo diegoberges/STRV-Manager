@@ -14,6 +14,7 @@ export class TokenComponent implements OnInit {
 	) {}
 	ngOnInit(): void {
 		this.route.queryParams.subscribe(async (params) => {
+			console.log('params: ', params);
 			this.#params = { ...params.keys, ...params };
 			this.oauthService.setLocalStorage(this.#params);
 		});
