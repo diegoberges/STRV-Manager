@@ -6,6 +6,10 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      NG_APP_CLIENT_ID: ${{ env.NG_APP_CLIENT_ID }}
+      NG_APP_CLIENT_SECRET: ${{ env.NG_APP_CLIENT_SECRET }}
+      NG_APP_URL: ${{ env.NG_APP_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -22,8 +26,6 @@ jobs:
         run: |
           npm install
           npm run-script deploy
-        env:
-          NG_APP_CLIENT_ID: ${{ env.NG_APP_CLIENT_ID }}
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
