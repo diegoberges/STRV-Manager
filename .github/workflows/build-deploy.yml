@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - main
-env:
-  NG_APP_CLIENT_ID: ${{ env.NG_APP_CLIENT_ID }}
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -24,6 +22,8 @@ jobs:
         run: |
           npm install
           npm run-script deploy
+        env:
+          NG_APP_CLIENT_ID: ${{ env.NG_APP_CLIENT_ID }}
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
