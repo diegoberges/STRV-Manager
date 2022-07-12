@@ -9,7 +9,6 @@ jobs:
     env:
       NG_APP_CLIENT_ID: ${{ secrets.NG_APP_CLIENT_ID }}
       NG_APP_CLIENT_SECRET: ${{ secrets.NG_APP_CLIENT_SECRET }}
-      NG_APP_URL: ${{ secrets.NG_APP_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -26,7 +25,7 @@ jobs:
         run: |
           npm install
           npm run-script deploy
-          echo $NG_APP_CLIENT_ID && $NG_APP_CLIENT_SECRET && $NG_APP_URL
+          echo $NG_APP_CLIENT_ID
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
