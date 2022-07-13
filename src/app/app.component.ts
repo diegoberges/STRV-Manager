@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
+		console.log('🚀 app');
 		this.translateService.setDefaultLang(LanguajeType.Spanish);
 
 		if (this.oauthService.checkLocalStorage()) {

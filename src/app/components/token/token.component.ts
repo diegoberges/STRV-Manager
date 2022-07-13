@@ -11,7 +11,9 @@ export class TokenComponent implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private oauthService: OauthService
-	) {}
+	) {
+		console.log('🚀 token constructor');
+	}
 	ngOnInit(): void {
 		console.log('🚀 token');
 		this.route.queryParams.subscribe(async (params) => {
