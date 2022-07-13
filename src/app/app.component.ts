@@ -17,12 +17,9 @@ export class AppComponent implements OnInit {
 		private router: Router,
 		private oauthService: OauthService,
 		private translateService: TranslateService
-	) {
-		console.log('🚀 vercel');
-	}
+	) {}
 
 	ngOnInit() {
-		console.log('🚀 app');
 		this.translateService.setDefaultLang(LanguajeType.Spanish);
 
 		if (this.oauthService.checkLocalStorage()) {
@@ -42,7 +39,6 @@ export class AppComponent implements OnInit {
 					this.router.navigate([Constants.ROUTE_ATHLETE]);
 				});
 		} else {
-			console.log('🚀 init sesion()');
 			this.oauthService.initSession();
 		}
 	}
