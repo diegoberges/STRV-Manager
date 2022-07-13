@@ -17,7 +17,9 @@ export class AppComponent implements OnInit {
 		private router: Router,
 		private oauthService: OauthService,
 		private translateService: TranslateService
-	) {}
+	) {
+		console.log('🚀 vercel');
+	}
 
 	ngOnInit() {
 		console.log('🚀 app');
