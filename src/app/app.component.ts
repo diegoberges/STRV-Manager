@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
 					this.router.navigate([Constants.ROUTE_ATHLETE]);
 				});
 		} else {
-			console.log('init sesion()');
+			console.log('🚀 init sesion()');
 			this.oauthService.initSession();
 		}
 	}
