@@ -1,53 +1,53 @@
 <nz-table [nzData]="items" nzSize="small">
-	<thead>
-		<tr>
-			<th *ngFor="let colum of columns" id="colum">{{ colum }}</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr *ngFor="let club of items" [hidden]="tipo != 1">
-			<td class="center">
-				<img
-					[src]="club.profile_medium"
-					[alt]="club.name"
-					class="profile"
-					[title]="club.name"
-				/>
-			</td>
-			<td class="center">
-				<em
-					nz-icon
-					nzType="user"
-					nzTheme="outline"
-					[hidden]="club.membership != 'member'"
-					[title]="club.membership"
-				></em>
-				<em
-					nz-icon
-					nzType="clock-circle"
-					nzTheme="outline"
-					[nzSpin]="true"
-					[hidden]="club.membership == 'member'"
-					[title]="club.membership"
-				></em>
-			</td>
-			<td>
-				<a href="https://www.strava.com/clubs/{{ club.url }}" target="_blank">
-					{{ club.name }}
-				</a>
-			</td>
-			<td>{{ club.activity_types }}</td>
-			<td>{{ club.city }}</td>
-		</tr>
-		<tr *ngFor="let item of items" [hidden]="tipo == 1">
-			<td>{{ item.converted_distance | number: '1.0-2':'es' }} KM</td>
-			<td>
-				{{ item.name }}
-				<div [hidden]="item.nickname == ''" class="nickname">
-					({{ item.nickname }})
-				</div>
-			</td>
-			<td>{{ item.primary }}</td>
-		</tr>
-	</tbody>
+  <thead>
+    <tr>
+      <th *ngFor="let colum of columns" id="colum">{{ colum }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let club of items" [hidden]="tipo !== 1">
+      <td class="center">
+        <img
+          [src]="club.profile_medium"
+          [alt]="club.name"
+          class="profile"
+          [title]="club.name"
+        />
+      </td>
+      <td class="center">
+        <em
+          nz-icon
+          nzType="user"
+          nzTheme="outline"
+          [hidden]="club.membership !== 'member'"
+          [title]="club.membership"
+        ></em>
+        <em
+          nz-icon
+          nzType="clock-circle"
+          nzTheme="outline"
+          [nzSpin]="true"
+          [hidden]="club.membership === 'member'"
+          [title]="club.membership"
+        ></em>
+      </td>
+      <td>
+        <a href="https://www.strava.com/clubs/{{ club.url }}" target="_blank">
+          {{ club.name }}
+        </a>
+      </td>
+      <td>{{ club.activity_types }}</td>
+      <td>{{ club.city }}</td>
+    </tr>
+    <tr *ngFor="let item of items" [hidden]="tipo === 1">
+      <td>{{ item.converted_distance | number: '1.0-2':'es' }} KM</td>
+      <td>
+        {{ item.name }}
+        <div [hidden]="item.nickname === ''" class="nickname">
+          ({{ item.nickname }})
+        </div>
+      </td>
+      <td>{{ item.primary }}</td>
+    </tr>
+  </tbody>
 </nz-table>

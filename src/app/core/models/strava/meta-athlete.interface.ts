@@ -1,3 +1,3 @@
 export interface MetaAthlete {
-	id: number;
+  id: number;
 }

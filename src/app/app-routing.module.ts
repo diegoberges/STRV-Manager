@@ -5,14 +5,14 @@ import { AthleteComponent } from './components/athlete/athlete.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
-	{ path: '', redirectTo: '', pathMatch: 'full' },
-	{ path: 'token', component: TokenComponent },
-	{ path: 'athlete', component: AthleteComponent },
-	{ path: '**', component: PageNotFoundComponent },
+  { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: 'token', component: TokenComponent },
+  { path: 'athlete', component: AthleteComponent },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({
-	imports: [RouterModule.forRoot(routes)],
-	exports: [RouterModule],
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

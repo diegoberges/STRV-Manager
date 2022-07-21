@@ -1,4 +1,4 @@
 export enum UnitSystem {
-	Feet = 'feet',
-	Meters = 'meters',
+  Feet = 'feet',
+  Meters = 'meters',
 }

@@ -3,21 +3,21 @@ import { SummarySegmentEffort } from './summary-segment-effort.interface';
 import { SummaryPRSegmentEffort } from './summary-pr-segment-effort.interface';
 
 export interface SummarySegment {
-	id: number;
-	name: string;
-	activity_type: ActivityType;
-	distance: number;
-	average_grade: number;
-	maximum_grade: number;
-	elevation_high: number;
-	elevation_low: number;
-	start_latlng: number[];
-	end_latlng: number[];
-	climb_category: number;
-	city: string;
-	state: string;
-	country: string;
-	private: boolean;
-	athlete_pr_effort: SummarySegmentEffort;
-	athlete_segment_stats: SummaryPRSegmentEffort;
+  id: number;
+  name: string;
+  activity_type: ActivityType;
+  distance: number;
+  average_grade: number;
+  maximum_grade: number;
+  elevation_high: number;
+  elevation_low: number;
+  start_latlng: number[];
+  end_latlng: number[];
+  climb_category: number;
+  city: string;
+  state: string;
+  country: string;
+  private: boolean;
+  athlete_pr_effort: SummarySegmentEffort;
+  athlete_segment_stats: SummaryPRSegmentEffort;
 }

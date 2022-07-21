@@ -1,4 +1,4 @@
 export enum LanguajeType {
-	Spanish = 'es',
-	English = 'en',
+  Spanish = 'es',
+  English = 'en',
 }

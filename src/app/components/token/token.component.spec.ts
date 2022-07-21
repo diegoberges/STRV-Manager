@@ -8,9 +8,8 @@ describe('TokenComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TokenComponent ]
-    })
-    .compileComponents();
+      declarations: [TokenComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

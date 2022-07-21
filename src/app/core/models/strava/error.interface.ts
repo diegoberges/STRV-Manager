@@ -1,5 +1,5 @@
 export interface Error {
-	code: string;
-	field: string;
-	resource: string;
+  code: string;
+  field: string;
+  resource: string;
 }
