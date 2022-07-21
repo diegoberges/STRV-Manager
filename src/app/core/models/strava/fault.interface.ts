@@ -1,4 +1,4 @@
 export interface Fault {
-	errors: Error[];
-	message: string;
+  errors: Error[];
+  message: string;
 }

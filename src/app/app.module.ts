@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import {
-	HTTP_INTERCEPTORS,
-	HttpClientModule,
-	HttpClient,
+  HTTP_INTERCEPTORS,
+  HttpClientModule,
+  HttpClient,
 } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,36 +29,36 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 registerLocaleData(es);
 @NgModule({
-	declarations: [
-		AppComponent,
-		TokenComponent,
-		AthleteComponent,
-		BreadcrumbComponent,
-		GridComponent,
-		PageNotFoundComponent,
-		StatsComponent,
-		StatComponentComponent,
-	],
-	imports: [
-		BrowserModule,
-		HttpClientModule,
-		AppRoutingModule,
-		FormsModule,
-		BrowserAnimationsModule,
-		NgZorroAntdModule,
-		TranslateModule.forRoot({
-			loader: {
-				provide: TranslateLoader,
-				useFactory: (http: HttpClient) => {
-					return new TranslateHttpLoader(http);
-				},
-				deps: [HttpClient],
-			},
-		}),
-	],
-	providers: [
-		{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-	],
-	bootstrap: [AppComponent],
+  declarations: [
+    AppComponent,
+    TokenComponent,
+    AthleteComponent,
+    BreadcrumbComponent,
+    GridComponent,
+    PageNotFoundComponent,
+    StatsComponent,
+    StatComponentComponent,
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    NgZorroAntdModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) => {
+          return new TranslateHttpLoader(http);
+        },
+        deps: [HttpClient],
+      },
+    }),
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

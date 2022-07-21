@@ -1,22 +1,49 @@
 {
-	"env": {
-		"browser": true,
-		"es2021": true,
-		"node": true
-	},
-	"extends": [
-		"airbnb-base",
-		"plugin:@typescript-eslint/recommended",
-		"plugin:sonarjs/recommended",
-		"prettier",
-		"prettier/angular",
-		"prettier/@typescript-eslint"
-	],
-	"parser": "@typescript-eslint/parser",
-	"parserOptions": {
-		"ecmaVersion": 12,
-		"sourceType": "module"
-	},
-	"plugins": ["@typescript-eslint", "sonarjs", "prettier"],
-	"rules": {}
+	"root": true,
+	"ignorePatterns": ["projects/**/*"],
+	"overrides": [
+		{
+			"files": ["*.ts"],
+			"parserOptions": {
+				"project": ["tsconfig.json"],
+				"createDefaultProgram": true
+			},
+			"extends": [
+				"plugin:@angular-eslint/recommended",
+				"plugin:@angular-eslint/template/process-inline-templates",
+				"plugin:prettier/recommended"
+			],
+			"rules": {
+				"@angular-eslint/directive-selector": [
+					"error",
+					{
+						"type": "attribute",
+						"prefix": "app",
+						"style": "camelCase"
+					}
+				],
+				"@angular-eslint/component-selector": [
+					"error",
+					{
+						"type": "element",
+						"prefix": "app",
+						"style": "kebab-case"
+					}
+				]
+			}
+		},
+		{
+			"files": ["*.html"],
+			"extends": ["plugin:@angular-eslint/template/recommended"],
+			"rules": {}
+		},
+		{
+			"files": ["*.html"],
+			"excludedFiles": ["*inline-template-*.component.html"],
+			"extends": ["plugin:prettier/recommended"],
+			"rules": {
+				"prettier/prettier": ["error", { "parser": "angular" }]
+			}
+		}
+	]
 }
