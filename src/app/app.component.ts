@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Constants } from './core/utils/constants';
 import { TranslateService } from '@ngx-translate/core';
 import { LanguajeType } from './core/enums/languaje-type';
+import { initFlowbite } from 'flowbite';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    initFlowbite();
     this.translateService.setDefaultLang(LanguajeType.Spanish);
 
     if (this.oauthService.checkLocalStorage()) {
