@@ -4,7 +4,7 @@ import { SummaryClub } from './../strava/summary-club.interface';
 type Contenido = SummaryClub; //| Shoe | Bike;
 
 export interface Panel {
-	disabled: boolean;
-	name: string;
-	content: Contenido[];
+  disabled: boolean;
+  name: string;
+  content: Contenido[];
 }

@@ -1,36 +1,36 @@
 <nz-layout>
-	<nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
-		<div class="logo">
-			<img
-				src="{{ athlete.profile }}"
-				alt="{{ athlete.firstname }} {{ athlete.lastname }}"
-			/>
-		</div>
-		<ul nz-menu nzTheme="dark" nzMode="inline">
-			<li nz-menu-item>
-				<em nz-icon nzType="user"></em>
-				<span>{{ 'MENU.PROFILE' | translate }}</span>
-			</li>
-			<li nz-submenu nzTitle="{{ 'MENU.SPORTS' | translate }}" nzIcon="team">
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+    <div class="logo">
+      <img
+        src="{{ athlete.profile }}"
+        alt="{{ athlete.firstname }} {{ athlete.lastname }}"
+      />
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+      <li nz-menu-item>
+        <em nz-icon nzType="user"></em>
+        <span>{{ 'MENU.PROFILE' | translate }}</span>
+      </li>
+      <!-- <li nz-submenu nzTitle="{{ 'MENU.SPORTS' | translate }}" nzIcon="team">
 				<ul>
 					<li nz-menu-item>{{ 'SPORTS.RUNNING' | translate }}</li>
 					<li nz-menu-item>{{ 'SPORTS.BIKE' | translate }}</li>
 				</ul>
-			</li>
-		</ul>
-	</nz-sider>
-	<nz-layout>
-		<nz-header>
-			<em
-				class="trigger"
-				nz-icon
-				[nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-				(click)="isCollapsed = !isCollapsed"
-			></em>
-		</nz-header>
-		<nz-content>
-			<router-outlet></router-outlet>
-		</nz-content>
-		<nz-footer>Diego Berges ©2021</nz-footer>
-	</nz-layout>
+			</li> -->
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <em
+        class="trigger"
+        nz-icon
+        [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+        (click)="isCollapsed = !isCollapsed"
+      ></em>
+    </nz-header>
+    <nz-content>
+      <router-outlet></router-outlet>
+    </nz-content>
+    <nz-footer>Diego Berges ©2021</nz-footer>
+  </nz-layout>
 </nz-layout>

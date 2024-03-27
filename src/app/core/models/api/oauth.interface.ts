@@ -1,5 +1,5 @@
 export interface Oauth {
-	state: string;
-	code: string;
-	scope: string;
+  state: string;
+  code: string;
+  scope: string;
 }

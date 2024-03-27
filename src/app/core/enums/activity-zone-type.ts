@@ -1,4 +1,4 @@
 export enum ActivityZoneType {
-	Heartrate = 'heartrate',
-	Power = 'power',
+  Heartrate = 'heartrate',
+  Power = 'power',
 }

@@ -1,10 +1,10 @@
 {
-	"MENU": {
-		"PROFILE": "Perfil",
-		"SPORTS": "Deportes"
-	},
-	"SPORTS": {
-		"RUNNING": "Correr",
-		"BIKE": "Bicicleta"
-	}
+  "MENU": {
+    "PROFILE": "Perfil",
+    "SPORTS": "Deportes"
+  },
+  "SPORTS": {
+    "RUNNING": "Correr",
+    "BIKE": "Bicicleta"
+  }
 }

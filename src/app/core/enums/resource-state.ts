@@ -1,5 +1,5 @@
 export enum ResourceState {
-	Meta = 1,
-	Summary = 2,
-	Detail = 3,
+  Meta = 1,
+  Summary = 2,
+  Detail = 3,
 }
