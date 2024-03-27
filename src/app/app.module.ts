@@ -23,7 +23,6 @@ import { HttpErrorInterceptor } from './core/interceptors/http-error-interceptor
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 // Modules
-import { NgZorroAntdModule } from './core/modules/ng-zorro-antd.module';
 //Translation
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -45,7 +44,6 @@ registerLocaleData(es);
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    NgZorroAntdModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
