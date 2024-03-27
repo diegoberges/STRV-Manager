@@ -119,9 +119,10 @@
 		"@schematics/angular:component": {
 			"style": "scss"
 		}
-	},
-	"defaultProject": "STRVManager",
-	"cli": {
-		"defaultCollection": "@angular-eslint/schematics"
+  },
+  "cli": {
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
 	}
 }
