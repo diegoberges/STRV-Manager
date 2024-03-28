@@ -10,7 +10,6 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // Components
 import { AppComponent } from './app.component';
-import { TokenComponent } from './components/token/token.component';
 import { BreadcrumbComponent } from './components/ui/breadcrumb/breadcrumb.component';
 import { GridComponent } from './components/ui/grid/grid.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -30,7 +29,6 @@ registerLocaleData(es);
 @NgModule({
   declarations: [
     AppComponent,
-    TokenComponent,
     AthleteComponent,
     BreadcrumbComponent,
     GridComponent,
