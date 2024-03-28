@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, filter } from 'rxjs';
+import { filter } from 'rxjs';
 import { QueryParams } from 'src/app/core/models/api/queryparams.interface';
-import { Welcome } from 'src/app/core/models/api/welcome.interface';
-import { SummaryAthlete } from 'src/app/core/models/strava/summary-athlete.interface';
 import { OauthService } from 'src/app/core/services/oauth.service';
 import { Constants } from 'src/app/core/utils/constants';
+import { AthleteService } from '../athlete/athlete.service';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +15,12 @@ import { Constants } from 'src/app/core/utils/constants';
 })
 export class LoginComponent {
   #params!: QueryParams;
-  athlete: SummaryAthlete = {} as SummaryAthlete;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private oauthService: OauthService,
+    private athleteService: AthleteService,
   ) {
     this.route.queryParams
       .pipe(filter((x) => Object.keys(x).length > 0))
@@ -41,8 +40,9 @@ export class LoginComponent {
     this.oauthService
       .refreshToken(this.oauthService.getItem(Constants.CODE))
       .subscribe((resp) => {
-        console.log('🚀 ~ resp', resp);
-        // this.athlete = resp.athlete;
+        const { athlete } = resp;
+
+        this.athleteService.setProfile(athlete);
 
         this.oauthService.setToken(
           resp.token_type,
@@ -51,6 +51,7 @@ export class LoginComponent {
           resp.refresh_token,
           resp.access_token,
         );
+
         this.router.navigate([Constants.ROUTE_ATHLETE]);
       });
   }

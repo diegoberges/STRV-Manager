@@ -9,6 +9,7 @@ import { Constants } from 'src/app/core/utils/constants';
 import { ActivityStats } from '../../core/models/strava/activity-stats.interface';
 import { SummaryActivity } from '../../core/models/strava/summary-activity.interface';
 import { lastValueFrom } from 'rxjs';
+import { SummaryAthlete } from 'src/app/core/models/strava/summary-athlete.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -18,29 +19,31 @@ export class AthleteService {
   #headers!: HttpHeaders;
   #athleteId!: number;
   #activities: SummaryActivity[] = [];
+  #profile: SummaryAthlete = {} as SummaryAthlete;
+
   constructor(
     private oauthService: OauthService,
-    private interactionService: InteractionService
+    private interactionService: InteractionService,
   ) {
     this.#token = this.oauthService.getToken();
 
     if (this.oauthService.tokenExist()) {
       this.#headers = new HttpHeaders().append(
         Constants.AUTHORIZATION,
-        this.#token.token_type + ' ' + this.#token.access_token
+        this.#token.token_type + ' ' + this.#token.access_token,
       );
     }
   }
   getAthlete(): Observable<DetailedAthlete> {
     return this.interactionService.get<DetailedAthlete>(
       Constants.ENDPOINT_ATHLETE,
-      this.#headers
+      this.#headers,
     );
   }
   getStats(): Observable<ActivityStats> {
     return this.interactionService.get<ActivityStats>(
       '/athletes/' + this.#athleteId + '/stats',
-      this.#headers
+      this.#headers,
     );
   }
   getAthleteId(): number {
@@ -53,7 +56,7 @@ export class AthleteService {
     return this.interactionService.get<SummaryActivity[]>(
       '/athlete/activities',
       this.#headers,
-      params
+      params,
     );
   }
   // getZones(): Observable<AthleteZone> {
@@ -94,13 +97,13 @@ export class AthleteService {
           // Las guardo en el sesion storage para no tener que recargarlas cada vez que entramos
           sessionStorage.setItem(
             'activities',
-            JSON.stringify(this.#activities)
+            JSON.stringify(this.#activities),
           );
           sessionStorage.setItem('dateActivities', JSON.stringify(new Date()));
         },
         (reason) => {
           console.error(reason);
-        }
+        },
       );
     } else {
       this.#activities = JSON.parse(sessionStorage.getItem('activities') ?? '');
@@ -109,10 +112,18 @@ export class AthleteService {
 
   getActivitiesByType(type: string): SummaryActivity[] {
     return this.#activities.filter(
-      (activitie) => activitie.sport_type === type
+      (activitie) => activitie.sport_type === type,
     );
   }
   areActivitiesWithFlag(): boolean {
     return this.#activities.some((activitie) => activitie.flagged);
+  }
+
+  setProfile(data: SummaryAthlete): void {
+    this.#profile = data;
+  }
+
+  getProfile(): SummaryAthlete {
+    return this.#profile;
   }
 }

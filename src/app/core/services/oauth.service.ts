@@ -89,7 +89,8 @@ export class OauthService {
    * @returns {Token}
    */
   getToken(): Token {
-    return this.#token;
+    const token = JSON.parse(localStorage.getItem('token') ?? '{}');
+    return token as Token;
   }
   /**
    * @description Establece el token que usaremos las llamadas hacia la API de Strava
@@ -111,17 +112,19 @@ export class OauthService {
     this.#token.expires_in = expires_in;
     this.#token.refresh_token = refresh_token;
     this.#token.access_token = access_token;
+
+    localStorage.setItem('token', JSON.stringify(this.#token));
   }
   /**
    * @description Devuelve si el token actual existe
    * @returns {boolean}
    */
   tokenExist(): boolean {
-    return (
-      this.#token != null &&
-      Object.keys(this.#token).length > 0 &&
-      this.#token.expires_in > 0
-    );
+    const token = this.getToken();
+    const tokenExist =
+      token !== null && Object.keys(token).length > 0 && token.expires_in > 0;
+
+    return tokenExist;
   }
   /**
    * @description Refrescamos el token de Strava
