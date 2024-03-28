@@ -50,7 +50,7 @@ export class AthleteComponent implements OnInit {
     // });
 
     this.activities = this.athleteService.getActivitiesByType('Run');
-
+    console.log(this.activities);
     // console.log(this.athleteService.areActivitiesWithFlag());
   }
 

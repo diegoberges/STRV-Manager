@@ -9,6 +9,7 @@ export class Constants {
 
   static readonly ENDPOINT_AUTHORIZE = '/authorize';
   static readonly ENDPOINT_TOKEN = '/token';
+  static readonly ENDPOINT_REDIRECT = '/login';
   static readonly ENDPOINT_DEAUTHORIZE = '/deauthorize';
   static readonly CLIENT_ID = 'client_id';
   static readonly CLIENT_SECRET = 'client_secret';
@@ -35,6 +36,8 @@ export class Constants {
   //#endregion
 
   //#region ROUTES
+  static readonly ROUTE_HOME = '/';
   static readonly ROUTE_ATHLETE = 'athlete';
+  static readonly ROUTE_LOGIN = '/login';
   //#endregion
 }

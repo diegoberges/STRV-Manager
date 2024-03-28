@@ -13,10 +13,7 @@ import { Constants } from '../utils/constants';
 })
 export class OauthService {
   #token: Token = {} as Token;
-  constructor(
-    private interactionService: InteractionService,
-    private router: Router
-  ) {}
+  constructor(private interactionService: InteractionService) {}
   /**
    * @description Petición de permisos a Strava
    * Le marcamos a que URL tiene que volver en el redirect_url
@@ -26,12 +23,13 @@ export class OauthService {
     url.searchParams.append(Constants.CLIENT_ID, environment.client_id);
     url.searchParams.append(
       Constants.REDIRECT_URI,
-      environment.url + Constants.ENDPOINT_TOKEN
+      environment.url + Constants.ENDPOINT_REDIRECT,
     );
     url.searchParams.append(Constants.RESPONSE_TYPE, Constants.CODE);
     url.searchParams.append(Constants.APPROVAL_PROMPT, Constants.AUTO);
     url.searchParams.append(Constants.SCOPE, Constants.SCOPE_PARAMS);
     url.searchParams.append(Constants.STATE, Constants.LOGIN);
+
     window.location.href = url.toString();
   }
   setLocalStorage(params: QueryParams): void {
@@ -68,7 +66,7 @@ export class OauthService {
     // TODO Esta a medias, falta mirar doc para saber como cerrar el token de trabajo
     const headers = new HttpHeaders().append(
       Constants.HTTP_HEADERS_CONTENT_TYPE,
-      Constants.HTTP_HEADERS_X_WWW_FORM_URLENCODED
+      Constants.HTTP_HEADERS_X_WWW_FORM_URLENCODED,
     );
 
     const body: any = {};
@@ -83,7 +81,7 @@ export class OauthService {
       Constants.STRV_OAUTH + Constants.ENDPOINT_DEAUTHORIZE,
       body,
       headers,
-      params
+      params,
     );
   }
   /**
@@ -106,7 +104,7 @@ export class OauthService {
     expires_at: number,
     expires_in: number,
     refresh_token: string,
-    access_token: string
+    access_token: string,
   ) {
     this.#token.token_type = token_type;
     this.#token.expires_at = expires_at;
@@ -133,7 +131,7 @@ export class OauthService {
   refreshToken(code: string): Observable<Welcome> {
     const headers = new HttpHeaders().append(
       Constants.HTTP_HEADERS_CONTENT_TYPE,
-      Constants.HTTP_HEADERS_X_WWW_FORM_URLENCODED
+      Constants.HTTP_HEADERS_X_WWW_FORM_URLENCODED,
     );
     const body: any = {};
 
@@ -147,7 +145,7 @@ export class OauthService {
       Constants.STRV_OAUTH + Constants.ENDPOINT_TOKEN,
       body,
       headers,
-      params
+      params,
     );
   }
 }
