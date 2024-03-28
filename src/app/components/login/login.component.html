@@ -1,0 +1,26 @@
+<section
+  class="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900"
+>
+  <div
+    class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+  >
+    <a href="#">
+      <h5
+        class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+      >
+        Inicia sesión con Strava
+      </h5>
+    </a>
+    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+      Vas a ser redirigido a la página de Strava para iniciar sesión con tu
+      cuenta
+    </p>
+    <button
+      type="button"
+      class="text-white bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      (click)="goToLogin()"
+    >
+      Iniciar sesión
+    </button>
+  </div>
+</section>
